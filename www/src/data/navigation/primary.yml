@@ -1,0 +1,9 @@
+title: Primary navigation
+key: primary
+items:
+  - title: Items 1
+    link: item-1
+  - title: Items 2
+    link: item-2
+  - title: Items 3
+    link: item-3

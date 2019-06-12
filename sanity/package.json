@@ -1,0 +1,31 @@
+{
+  "name": "ZIA",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "author": "Marc-Antoine Ruel <hello@marcantoineruel.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "develop": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "graphql-deploy": "sanity graphql deploy --playground",
+    "test": "sanity check"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/base": "^0.140.33",
+    "@sanity/components": "^0.140.33",
+    "@sanity/core": "^0.140.32",
+    "@sanity/default-layout": "^0.140.33",
+    "@sanity/default-login": "^0.140.15",
+    "@sanity/desk-tool": "^0.140.33",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {}
+}
