@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selective tag rendering renders correctly 1`] = `
+<button
+  css={
+    Object {
+      "&&": Object {
+        ":focus": Object {
+          "boxShadow": "0 0 0 10 #00353d",
+          "outline": 0,
+        },
+        ":hover, :focus": Object {
+          ".eqrrkvw0": Object {
+            "transform": "translateX(10px)",
+          },
+          "borderColor": "#00353d",
+          "color": "#00353d",
+        },
+        "MozOsxFontSmoothing": "grayscale",
+        "WebkitFontSmoothing": "antialiased",
+        "alignItems": "right",
+        "backgroundColor": "transparent",
+        "borderColor": "#e86752",
+        "borderRadius": "13% / 50%",
+        "borderStyle": "solid",
+        "borderWidth": 3,
+        "color": "#e86752",
+        "cursor": "pointer",
+        "display": "inline-block",
+        "flexShrink": 0,
+        "fontFamily": "Source Serif Pro",
+        "fontSize": 24,
+        "fontWeight": 700,
+        "lineHeight": 1.08,
+        "maxWidth": "26ch",
+        "padding": "20px 40px 17px",
+        "textAlign": "left",
+        "textDecoration": "none",
+        "textRendering": "optimizeLegibility",
+        "transition": "all 250ms",
+      },
+    }
+  }
+>
+  Voir les régions
+  <span
+    className="css-18hem83-Arrow eqrrkvw0"
+  >
+    →
+  </span>
+</button>
+`;
