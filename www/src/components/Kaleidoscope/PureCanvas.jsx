@@ -12,7 +12,7 @@ class PureCanvas extends PureComponent {
         <img
           ref={node => (node ? imgRef(node) : null)}
           src={img}
-          css={{ display: "none" }}
+          css={{}}
           alt=""
         />
 
