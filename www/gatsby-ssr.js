@@ -11,40 +11,11 @@ export const onRenderBody = ({ setHeadComponents }) => {
     <link
       key="1"
       rel="preload"
-      href="/assets/fonts/Raleway/Raleway-Bold.woff2"
+      href="/fonts/SuisseIntl/SuisseIntl-Medium.woff2"
       as="font"
       type="font/woff2"
       crossOrigin="true"
     />,
-    <link
-      key="2"
-      rel="preload"
-      href="/assets/fonts/Raleway/Raleway-ExtraBold.woff2"
-      as="font"
-      type="font/woff2"
-      crossOrigin="true"
-    />,
-    <link
-      key="3"
-      rel="preload"
-      href="/assets/fonts/Raleway/Raleway-Medium.woff2"
-      as="font"
-      type="font/woff2"
-      crossOrigin="true"
-    />,
-    <link
-      key="4"
-      rel="preload"
-      href="/assets/fonts/Source_Serif_Pro/WOFF2/TTF/SourceSerifPro-Bold.ttf.woff2"
-      as="font"
-      type="font/woff2"
-      crossOrigin="true"
-    />,
-    <link key="5" href="/assets/fonts/Raleway/Raleway.css" rel="stylesheet" />,
-    <link
-      key="6"
-      href="/assets/fonts/Source_Serif_Pro/source-serif-pro.css"
-      rel="stylesheet"
-    />,
+    <link key="2" href="/fonts/SuisseIntl/SuisseIntl.css" rel="stylesheet" />,
   ])
 }
