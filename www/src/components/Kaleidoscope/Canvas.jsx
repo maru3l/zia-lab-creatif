@@ -14,26 +14,29 @@ class Canvas extends Component {
     this.saveImg = this.saveImg.bind(this)
   }
 
-  componentDidMount() {
-    console.log(this.myImg)
+  // componentDidMount() {
+  //   console.log(this.myImg)
 
-    this.myImg.onload = () => {
-      this.img = this.myImg
+  //   this.myImg.onload = () => {
+  //     console.log("image has load")
 
-      this.ctx.fillStyle = this.ctx.createPattern(this.img, "repeat")
+  //     this.img = this.myImg
 
-      console.log(this.img)
+  //     this.ctx.fillStyle = this.ctx.createPattern(this.img, "repeat")
 
-      this.forceUpdate()
-    }
-  }
+  //     console.log(this.img)
+
+  //     this.forceUpdate()
+  //   }
+  // }
 
   componentDidUpdate() {
     const { offsetX, offsetY, offsetRotation, width } = this.props
 
-    console.log(`image from did update : ${this.img}`)
+    // console.log(`image from did update : ${this.img}`)
 
     if (!this.img) return
+    // if (!this.myImg) return
 
     this.ctx.fillStyle = this.ctx.createPattern(this.img, "repeat")
 
@@ -76,6 +79,16 @@ class Canvas extends Component {
 
   saveImg(img) {
     this.myImg = img
+
+    img.onload = () => {
+      console.log("image has load")
+
+      this.img = img
+
+      console.log(this.img)
+
+      this.forceUpdate()
+    }
   }
 
   render() {
