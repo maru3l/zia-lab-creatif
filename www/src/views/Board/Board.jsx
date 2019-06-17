@@ -37,6 +37,8 @@ const BoardView = () => {
     }
   `)
 
+  console.log(boardMembers)
+
   return (
     <section
       id="bios"
