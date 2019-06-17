@@ -1,9 +1,9 @@
 // vendors
-import React, { PureComponent } from "react"
+import React, { Component } from "react"
 
 import img from "../../images/pattern-kaleidoscope.png"
 
-class PureCanvas extends PureComponent {
+class PureCanvas extends Component {
   render() {
     const { contextRef, imgRef, width, ...props } = this.props
 
