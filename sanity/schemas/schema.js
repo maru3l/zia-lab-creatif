@@ -9,13 +9,15 @@ import meta from './objects/meta'
 import richText from './objects/richText'
 
 // documents
+import boardMember from './documents/boardMember'
 
 export default createSchema({
-  name: 'default',
+  name: 'ZIA',
   types: schemaTypes.concat([
-    richText,
     blockquote,
+    boardMember,
     figure,
     meta,
+    richText,
   ])
 })

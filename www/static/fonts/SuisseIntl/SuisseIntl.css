@@ -1,0 +1,10 @@
+
+@font-face {
+    font-family:"SuisseIntl";
+    src:
+      url("SuisseIntl-Medium.woff2") format("woff2"),
+      url("SuisseIntl-Medium.woff") format("woff"),
+      url("SuisseIntl-Medium.otf") format("opentype");
+    font-style:normal;
+    font-weight:500;
+}
