@@ -7,8 +7,8 @@ import { colors, fonts, lineHeights } from "../variables"
 
 export default css`
   :root {
-    --font-size: ${(18 / 16) * 100}%;
-    --line-height: ${22 / 18};
+    --font-size: ${((10 * (57 / 35)) / 16) * 100}%;
+    --line-height: ${12 / 10};
   }
 
   html {
@@ -20,9 +20,11 @@ export default css`
   body {
     font-family: ${fonts.body};
     color: ${colors.text};
-    word-wrap: break-word;
     font-kerning: normal;
     font-feature-settings: "kern", "liga", "clig", "calt";
+    font-weight: medium;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     /* Rythme background */
     /* background-image: linear-gradient(#eee 1px, transparent 1px);
@@ -37,6 +39,7 @@ export default css`
   h5,
   h6 {
     text-rendering: optimizeLegibility;
+    letter-spacing: -7;
   }
 
   p {
@@ -46,5 +49,17 @@ export default css`
     &:first-child {
       margin-top: 0;
     }
+  }
+
+  .panel-font-size {
+    ${fluidRange(
+      {
+        prop: "font-size",
+        fromSize: `${29 / 10}rem`,
+        toSize: `${36 / 10}rem`,
+      },
+      "320px",
+      "768px"
+    )}
   }
 `
