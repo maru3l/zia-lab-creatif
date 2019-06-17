@@ -7,8 +7,8 @@ class Canvas extends Component {
   constructor(props) {
     super(props)
 
-    this.myContext = React.createRef()
-    this.myImg = React.createRef()
+    // this.myContext = React.createRef()
+    // this.myImg = React.createRef()
 
     this.saveContext = this.saveContext.bind(this)
     this.saveImg = this.saveImg.bind(this)
@@ -33,10 +33,9 @@ class Canvas extends Component {
   componentDidUpdate() {
     const { offsetX, offsetY, offsetRotation, width } = this.props
 
-    // console.log(`image from did update : ${this.img}`)
+    console.log(`image from did update : ${this.img}`)
 
     if (!this.img) return
-    // if (!this.myImg) return
 
     this.ctx.fillStyle = this.ctx.createPattern(this.img, "repeat")
 
