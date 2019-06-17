@@ -25,6 +25,8 @@ class Canvas extends Component {
   componentDidUpdate() {
     const { offsetX, offsetY, offsetRotation, width } = this.props
 
+    console.log(this.ctx)
+
     if (!this.img) return
 
     this.ctx.fillStyle = this.ctx.createPattern(this.img, "repeat")
