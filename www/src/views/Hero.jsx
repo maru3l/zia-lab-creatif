@@ -72,25 +72,38 @@ class Hero extends Component {
         ref={this.myContainer}
         css={{
           backgroundColor: colors.verdunGreen,
-          maxHeight: `calc(100vh - 20px)`,
+          maxHeight: `calc(100vh - 10px)`,
           height: "100vh",
-          padding: `10px`,
+          padding: `5px`,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
         onMouseMove={this.onMouseMove}
       >
-        <Canvas
-          offsetX={offsetX}
-          offsetY={offsetY}
-          offsetRotation={offsetRotation}
-          width={width}
+        <div
           css={{
-            display: "block",
             margin: "auto",
+            borderRadius: `100%`,
+            overflow: "hidden",
+            height: `${width - 2}px`,
+            width: `${width - 2}px`,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-        />
+        >
+          <Canvas
+            offsetX={offsetX}
+            offsetY={offsetY}
+            offsetRotation={offsetRotation}
+            width={width}
+            css={{
+              display: "block",
+              margin: "auto",
+            }}
+          />
+        </div>
       </section>
     )
   }
