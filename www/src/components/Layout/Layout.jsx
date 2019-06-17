@@ -7,17 +7,16 @@ import { Global } from "@emotion/core"
 import "normalize.css"
 import globalStyle from "../../styles/global"
 
+import Navigation from "../Navigation"
+
 const Layout = ({ children }) => (
   <>
     <Global styles={globalStyle} />
 
+    <Navigation />
+
     <div>
       <main>{children}</main>
-      <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
-      </footer>
     </div>
   </>
 )
