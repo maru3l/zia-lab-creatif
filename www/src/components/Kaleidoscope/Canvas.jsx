@@ -77,17 +77,9 @@ class Canvas extends Component {
   }
 
   saveImg(img) {
-    this.myImg = img
+    this.img = img
 
-    img.onload = () => {
-      console.log("image has load")
-
-      this.img = img
-
-      console.log(this.img)
-
-      this.forceUpdate()
-    }
+    this.forceUpdate()
   }
 
   render() {
