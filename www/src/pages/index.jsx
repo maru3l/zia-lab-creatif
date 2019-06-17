@@ -25,11 +25,7 @@ const IndexPage = ({ data }) => (
 
     <Mission />
 
-    <Image fluid={data.bgMandats.childImageSharp.fluid} />
-
     <Mandats />
-
-    <Image fluid={data.bgOrganisation.childImageSharp.fluid} />
 
     <Board />
 
@@ -39,21 +35,26 @@ const IndexPage = ({ data }) => (
 
 export default IndexPage
 
-export const query = graphql`
-  query IndexPage {
-    bgMandats: file(name: { eq: "bg-mandats" }) {
-      childImageSharp {
-        fluid(maxWidth: 2560) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
-        }
-      }
-    }
-    bgOrganisation: file(name: { eq: "bg-organisation" }) {
-      childImageSharp {
-        fluid(maxWidth: 2560) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query IndexPage {
+//     bgMandats: file(name: { eq: "bg-mandats" }) {
+//       childImageSharp {
+//         fluid(maxWidth: 2560) {
+//           ...GatsbyImageSharpFluid_withWebp_noBase64
+//         }
+//       }
+//     }
+//     bgOrganisation: file(name: { eq: "bg-organisation" }) {
+//       childImageSharp {
+//         fluid(maxWidth: 2560) {
+//           ...GatsbyImageSharpFluid_withWebp_noBase64
+//         }
+//       }
+//     }
+//   }
+// `
+
+{
+  /* <Image fluid={data.bgMandats.childImageSharp.fluid} />
+    <Image fluid={data.bgOrganisation.childImageSharp.fluid} /> */
+}
