@@ -25,7 +25,7 @@ class Canvas extends Component {
   componentDidUpdate() {
     const { offsetX, offsetY, offsetRotation, width } = this.props
 
-    console.log(this.ctx)
+    console.log(this.img)
 
     if (!this.img) return
 
