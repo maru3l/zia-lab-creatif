@@ -41,3 +41,5 @@ module.exports = {
     "gatsby-transformer-yaml",
   ],
 }
+
+console.log(process.env.SANITY_PROJECT_ID)
