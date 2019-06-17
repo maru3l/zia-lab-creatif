@@ -15,6 +15,7 @@ export default css`
     font-size: var(--font-size);
     line-height: var(--line-height);
     font-family: ${fonts.body};
+    scroll-behavior: smooth;
   }
 
   body {
