@@ -28,12 +28,15 @@ class Hero extends Component {
   }
 
   onResize() {
+    console.log("resize from Hero")
+
     const { height, width } = this.myContainer.current.getBoundingClientRect()
 
     this.setState({ width: (height < width ? height : width) - 20 })
   }
 
   onMouseMove(e) {
+    console.log("mouseMoved from Hero")
     const { offsetRotation, offsetX, offsetY, width } = this.state
 
     const radius = 945 / 2
