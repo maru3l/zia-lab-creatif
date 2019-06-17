@@ -4,15 +4,15 @@ export default {
   title: 'Meta',
   options: { collapsible: true, collapsed: true },
   fields: [
-    {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96
-      }
-    },
+    // {
+    //   name: 'slug',
+    //   title: 'Slug',
+    //   type: 'slug',
+    //   options: {
+    //     source: 'title',
+    //     maxLength: 96
+    //   }
+    // },
     {
       name: 'title',
       title: 'Titre',
