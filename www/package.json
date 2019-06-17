@@ -7,6 +7,8 @@
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.12",
+    "@reach/visually-hidden": "^0.1.4",
+    "@sanity/block-content-to-react": "^2.0.6",
     "babel-plugin-styled-components": "^1.10.0",
     "dotenv": "^8.0.0",
     "gatsby": "^2.9.1",
