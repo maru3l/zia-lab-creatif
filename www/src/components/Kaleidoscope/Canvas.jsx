@@ -15,7 +15,10 @@ class Canvas extends Component {
   }
 
   componentDidMount() {
+    console.log(this.myImg)
     this.myImg.onload = () => {
+      console.log(this.myImg)
+
       this.img = this.myImg
 
       this.forceUpdate()
@@ -24,8 +27,6 @@ class Canvas extends Component {
 
   componentDidUpdate() {
     const { offsetX, offsetY, offsetRotation, width } = this.props
-
-    console.log(this.img)
 
     if (!this.img) return
 
