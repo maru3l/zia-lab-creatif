@@ -16,10 +16,13 @@ class Canvas extends Component {
 
   componentDidMount() {
     console.log(this.myImg)
-    this.myImg.onload = () => {
-      console.log(this.myImg)
 
+    this.myImg.onload = () => {
       this.img = this.myImg
+
+      this.ctx.fillStyle = this.ctx.createPattern(this.img, "repeat")
+
+      console.log(this.img)
 
       this.forceUpdate()
     }
@@ -27,6 +30,8 @@ class Canvas extends Component {
 
   componentDidUpdate() {
     const { offsetX, offsetY, offsetRotation, width } = this.props
+
+    console.log(`image from did update : ${this.img}`)
 
     if (!this.img) return
 
