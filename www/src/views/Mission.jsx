@@ -5,6 +5,8 @@ import styled from "@emotion/styled"
 
 import { colors, breakpoints } from "../styles/variables"
 
+import VectorStar from "../images/VectorStar"
+
 const Wrapper = styled.div`
   width: 100vh;
   max-width: 100vw;
@@ -45,6 +47,21 @@ const MissionView = () => {
       `}
     >
       <Wrapper>
+        <VectorStar
+          css={css`
+            position: absolute;
+            width: ${42 / 36}em;
+            fill: ${colors.doublePearlLusta};
+            top: 80px;
+            right: 52%;
+            opacity: 0;
+
+            ${breakpoints.mediaQueries.ratio11} {
+              opacity: 1;
+            }
+          `}
+        />
+
         <TitlePanel>
           <div
             css={css`

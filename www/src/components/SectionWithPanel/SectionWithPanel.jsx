@@ -5,6 +5,8 @@ import styled from "@emotion/styled"
 
 import { colors, breakpoints } from "../../styles/variables"
 
+import VectorStar from "../../images/VectorStar"
+
 const Wrapper = styled.div`
   width: 100vh;
   max-width: 100vw;
@@ -71,6 +73,21 @@ const SectionWithPanel = ({ children, title, ...props }) => {
               align-items: center;
             `}
           >
+            <VectorStar
+              css={css`
+                position: absolute;
+                width: ${42 / 36}em;
+                fill: ${colorsState.starColor};
+                top: 50%;
+                left: 125%;
+                opacity: 0;
+                z-index: -1;
+
+                ${breakpoints.mediaQueries.ratio11} {
+                  opacity: 1;
+                }
+              `}
+            />
             <h2
               css={css`
                 text-align: center;
@@ -87,7 +104,6 @@ const SectionWithPanel = ({ children, title, ...props }) => {
             </h2>
           </div>
         </TitlePanel>
-
         {children.map((child, index) => {
           return React.cloneElement(child, {
             key: index,

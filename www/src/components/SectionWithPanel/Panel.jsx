@@ -63,6 +63,7 @@ class Panel extends Component {
           min-height: calc(100vh - 80px);
           opacity: ${isVisible ? "1" : "0"};
           transition: opacity 450ms ease-out;
+          z-index: 1;
 
           ${breakpoints.mediaQueries.ratio11} {
             padding-left: 0;
