@@ -17,7 +17,7 @@ import Hero from "../views/Hero"
 
 const IndexPage = ({ data }) => (
   <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+    <SEO />
 
     <Hero />
 

@@ -18,7 +18,6 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
           siteMetadata {
             title
             description
-            author
           }
         }
       }
@@ -32,8 +31,7 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={site.siteMetadata.title}
       meta={[
         {
           name: `description`,
@@ -41,7 +39,7 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
         },
         {
           property: `og:title`,
-          content: title,
+          content: site.siteMetadata.title,
         },
         {
           property: `og:description`,
@@ -54,10 +52,6 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
         {
           name: `twitter:card`,
           content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
         },
         {
           name: `twitter:title`,
