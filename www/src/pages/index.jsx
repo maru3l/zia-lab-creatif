@@ -17,7 +17,21 @@ import Hero from "../views/Hero"
 
 const IndexPage = ({ data }) => (
   <Layout>
-    <SEO />
+    <SEO
+      keywords={[
+        "Zia Lab créatif",
+        "compagnie de création et production à Québec",
+        "danse contemporaine au Québec",
+        "création danse musique à Québec",
+        "spectacles danse musique à Québec",
+        "musique électronique au Québec",
+        "arts multi au Québec",
+        "Pascal Asselin",
+        "Millimetrik",
+        "Geneviève Duong",
+        "Geneviève Pascal",
+      ]}
+    />
 
     <Hero />
 

@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: "Zia Lab créatif",
     description:
-      "Créer et produire des spectacles dont la danse et la musique se magnifient l'un l'autre, afin de permettre à un large public de vivre l'art.",
+      "Compagnie de création en danse, musique et arts multi des artistes Geneviève Duong, chorégraphe interprète, et Pascal Asselin alias Millimetrik, musicien compositeur.",
     siteUrl: "https://www.zialabcreatif.com",
   },
   plugins: [
