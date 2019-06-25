@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 259.53 259.53">
-  <title>exit</title>
-  <g>
-    <rect x="-37.22" y="113.24" width="333.98" height="33.05" transform="translate(-53.75 129.76) rotate(-45)" fill="#ef2904"/>
-    <rect x="-37.22" y="113.24" width="333.98" height="33.05" transform="translate(129.76 -53.75) rotate(45)" fill="#ef2904"/>
+  <g fill="#d05935">
+    <rect x="-37.22" y="113.24" width="333.98" height="33.05" transform="translate(-53.75 129.76) rotate(-45)" />
+    <rect x="-37.22" y="113.24" width="333.98" height="33.05" transform="translate(129.76 -53.75) rotate(45)" />
   </g>
 </svg>
