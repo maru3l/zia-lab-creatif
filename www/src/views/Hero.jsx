@@ -15,29 +15,38 @@ class Hero extends Component {
 
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onResize = this.onResize.bind(this)
+    this.onTicking = this.onTicking.bind(this)
+
+    this.isTicking = false
+    this.hasMouse = false
+    this.tick = 0
   }
 
   componentDidMount() {
     window.addEventListener("resize", this.onResize)
+    window.addEventListener("mousemove", this.onMouseMove)
 
     this.onResize()
+
+    this.rAF = requestAnimationFrame(this.onTicking)
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.onResize)
+    window.removeEventListener("mousemove", this.onMouseMove)
+    cancelAnimationFrame(this.rAF)
   }
 
   onResize() {
-    console.log("resize from Hero")
-
     const { height, width } = this.myContainer.current.getBoundingClientRect()
 
     this.setState({ width: (height < width ? height : width) - 20 })
   }
 
   onMouseMove(e) {
-    console.log("mouseMoved from Hero")
     const { offsetRotation, offsetX, offsetY, width } = this.state
+
+    this.hasMouse = true
 
     const radius = 945 / 2
 
@@ -64,6 +73,47 @@ class Hero extends Component {
     })
   }
 
+  onTicking() {
+    const { offsetRotation, offsetX, offsetY, width } = this.state
+
+    if (!this.isTicking && !this.hasMouse) {
+      this.isTicking = true
+
+      const randomX =
+        window.innerWidth - Math.sin(this.tick) * window.innerWidth
+      const randomY =
+        window.innerHeight - Math.cos(this.tick * 2) * window.innerHeight
+
+      const dx = randomX / window.innerWidth
+      const dy = randomY / window.innerHeight
+
+      const radius = 945 / 2
+
+      const hx = dx - 0.5
+      const hy = dy - 0.5
+
+      const tx = hx * radius * -2
+      const ty = hy * radius * 2
+      const tr = Math.atan2(hy, hx)
+
+      const delta = tr - offsetRotation
+      const theta = Math.atan2(Math.sin(delta), Math.cos(delta))
+
+      const ease = 0.1
+
+      this.setState({
+        offsetX: offsetX + (tx - offsetX) * ease,
+        offsetY: offsetY + (ty - offsetY) * ease,
+        offsetRotation: offsetRotation + (theta - offsetRotation) * ease,
+        width,
+      })
+
+      this.tick += 0.01
+      this.isTicking = false
+    }
+    this.rAF = requestAnimationFrame(this.onTicking)
+  }
+
   render() {
     const { offsetX, offsetY, offsetRotation, width } = this.state
 
@@ -79,7 +129,6 @@ class Hero extends Component {
           justifyContent: "center",
           alignItems: "center",
         }}
-        onMouseMove={this.onMouseMove}
       >
         <div
           css={{
