@@ -4,7 +4,7 @@
   "scripts": {
     "build": "lerna run build --parallel",
     "build-studio": "(cd sanity && npm run build)",
-    "build-web": "(cd www && npm run build)",
+    "build-web": "(cd sanity && SANITY_AUTH_TOKEN=$SANITY_DEPLOY_STUDIO_TOKEN npm run graphql-deploy) && (cd www && npm run build)",
     "develop": "lerna run develop --parallel",
     "format": "lerna run format",
     "graphql-deploy": "lerna run graphql-deploy",

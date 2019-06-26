@@ -2,14 +2,19 @@ require("dotenv").config()
 
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Default Starter",
+    title: "Zia Lab créatif",
     description:
-      "Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.",
-    author: "@maru3l",
-    siteUrl: "https://www.example.com",
+      "Compagnie de création en danse, musique et arts multi des artistes Geneviève Duong, chorégraphe interprète, et Pascal Asselin alias Millimetrik, musicien compositeur.",
+    siteUrl: "https://www.zialabcreatif.com",
   },
   plugins: [
     "gatsby-plugin-emotion",
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-142434544-1",
+      },
+    },
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
     "gatsby-plugin-sitemap",

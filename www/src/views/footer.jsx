@@ -99,15 +99,11 @@ const FooterView = () => (
 
           <ul>
             <li>
-              <a href="https://www.facebook.com/">facebook</a>
+              <a href="https://www.facebook.com/zialabcreatif">facebook</a>
             </li>
 
             <li>
-              <a href="https://www.instagram.com/">instagram</a>
-            </li>
-
-            <li>
-              <a href="https://www.linkedin.com/">linked in</a>
+              <a href="https://www.instagram.com/zialabcreatif/">instagram</a>
             </li>
           </ul>
         </div>

@@ -17,7 +17,21 @@ import Hero from "../views/Hero"
 
 const IndexPage = ({ data }) => (
   <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+    <SEO
+      keywords={[
+        "Zia Lab créatif",
+        "compagnie de création et production à Québec",
+        "danse contemporaine au Québec",
+        "création danse musique à Québec",
+        "spectacles danse musique à Québec",
+        "musique électronique au Québec",
+        "arts multi au Québec",
+        "Pascal Asselin",
+        "Millimetrik",
+        "Geneviève Duong",
+        "Geneviève Pascal",
+      ]}
+    />
 
     <Hero />
 
@@ -43,14 +57,14 @@ export const query = graphql`
   query IndexPage {
     bgMandats: file(name: { eq: "bg-mandats" }) {
       childImageSharp {
-        fluid(maxWidth: 2560) {
+        fluid(maxWidth: 2560, quality: 90) {
           ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
     bgOrganisation: file(name: { eq: "bg-organisation" }) {
       childImageSharp {
-        fluid(maxWidth: 2560) {
+        fluid(maxWidth: 2560, quality: 90) {
           ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }

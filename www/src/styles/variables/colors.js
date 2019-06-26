@@ -1,10 +1,8 @@
 // vendors
-import { rgb } from "polished"
-
 const colors = {
   prussianBlue: `#07002b`,
-  scarlet: `#ef2904`,
-  // scarlet: rgb(208, 89, 53),
+  // scarlet: `#ef2904`,
+  scarlet: "#d05935",
   verdunGreen: `#3c6518`,
   doublePearlLusta: `#ebdeba`,
   black: `#090708`,
