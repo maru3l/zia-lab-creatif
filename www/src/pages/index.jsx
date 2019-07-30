@@ -58,14 +58,14 @@ export const query = graphql`
     bgMandats: file(name: { eq: "bg-mandats" }) {
       childImageSharp {
         fluid(maxWidth: 2560, quality: 50) {
-          ...GatsbyImageSharpFluid_withWebp
+          ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
     bgOrganisation: file(name: { eq: "bg-organisation" }) {
       childImageSharp {
         fluid(maxWidth: 2560, quality: 50) {
-          ...GatsbyImageSharpFluid_withWebp
+          ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
