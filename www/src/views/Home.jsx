@@ -29,6 +29,8 @@ const HomeView = () => (
         object-position: center;
         max-width: calc(100% - 80px);
         max-height: calc(100% - 80px);
+        width: 100%;
+        height: 100%;
       `}
     >
       <polygon
