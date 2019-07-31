@@ -16,7 +16,14 @@ module.exports = {
       },
     },
     "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sharp",
+    {
+      resolve: "gatsby-plugin-sharp",
+      options: {
+        useMozJpeg: true,
+        stripMetadata: true,
+        defaultQuality: 100,
+      },
+    },
     "gatsby-plugin-sitemap",
     // "gatsby-plugin-subfont",
     {
