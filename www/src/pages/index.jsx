@@ -39,11 +39,15 @@ const IndexPage = ({ data }) => (
 
     <Mission />
 
-    <Image fluid={data.bgMandats.childImageSharp.fluid} />
+    <Image
+      fluid={{ ...data.bgMandats.childImageSharp.fluid, sizes: "100vw" }}
+    />
 
     <Mandats />
 
-    <Image fluid={data.bgOrganisation.childImageSharp.fluid} />
+    <Image
+      fluid={{ ...data.bgOrganisation.childImageSharp.fluid, sizes: "100vw" }}
+    />
 
     <Board />
 
