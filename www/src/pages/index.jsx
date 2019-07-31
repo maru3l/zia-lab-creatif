@@ -1,7 +1,5 @@
 // vendors
 import React from "react"
-import Image from "gatsby-image"
-import { graphql } from "gatsby"
 
 // components
 import Layout from "../components/Layout"
@@ -15,7 +13,7 @@ import Board from "../views/Board"
 import FooterView from "../views/footer"
 import Hero from "../views/Hero"
 
-const IndexPage = ({ data }) => (
+const IndexPage = () => (
   <Layout>
     <SEO
       keywords={[
@@ -42,73 +40,24 @@ const IndexPage = ({ data }) => (
     <picture>
       <source
         sizes="100vw"
-        srcSet={data.bgMandats.childImageSharp.fluid.srcSetWebp}
-        type="image/webp"
-      />
-
-      <img
-        src={data.bgMandats.childImageSharp.fluid.src}
-        alt=""
-        role="presentation"
-        sizes="100vw"
-        srcset={data.bgMandats.childImageSharp.fluid.srcSet}
-      />
-    </picture>
-
-    <Mandats />
-
-    <picture>
-      <source
-        sizes="100vw"
-        srcSet={data.bgOrganisation.childImageSharp.fluid.srcSetWebp}
-        type="image/webp"
-      />
-
-      <img
-        src={data.bgOrganisation.childImageSharp.fluid.src}
-        alt=""
-        role="presentation"
-        sizes="100vw"
-        srcset={data.bgOrganisation.childImageSharp.fluid.srcSet}
-      />
-    </picture>
-
-    <Board />
-
-    <FooterView />
-  </Layout>
-)
-
-export default IndexPage
-
-export const query = graphql`
-  query IndexPage {
-    bgMandats: file(name: { eq: "bg-mandats" }) {
-      childImageSharp {
-        fluid(maxWidth: 5120, quality: 100) {
-          src
-          srcSet
-          srcSetWebp
-        }
-      }
-    }
-    bgOrganisation: file(name: { eq: "bg-organisation" }) {
-      childImageSharp {
-        fluid(maxWidth: 5120, quality: 100) {
-          src
-          srcSet
-          srcSetWebp
-        }
-      }
-    }
-  }
-`
-
-{
-  /* <picture>
-      <source
-        sizes="100vw"
-        srcSet={data.bgOrganisation.childImageSharp.fluid.srcSetWebp}
+        srcset="
+          /images/bg-mandats_qo3wfk_c_scale,w_320.webp 320w,
+          /images/bg-mandats_qo3wfk_c_scale,w_1661.webp 1661w,
+          /images/bg-mandats_qo3wfk_c_scale,w_2170.webp 2170w,
+          /images/bg-mandats_qo3wfk_c_scale,w_2511.webp 2511w,
+          /images/bg-mandats_qo3wfk_c_scale,w_2854.webp 2854w,
+          /images/bg-mandats_qo3wfk_c_scale,w_3102.webp 3102w,
+          /images/bg-mandats_qo3wfk_c_scale,w_3342.webp 3342w,
+          /images/bg-mandats_qo3wfk_c_scale,w_3576.webp 3576w,
+          /images/bg-mandats_qo3wfk_c_scale,w_3810.webp 3810w,
+          /images/bg-mandats_qo3wfk_c_scale,w_4027.webp 4027w,
+          /images/bg-mandats_qo3wfk_c_scale,w_4240.webp 4240w,
+          /images/bg-mandats_qo3wfk_c_scale,w_4446.webp 4446w,
+          /images/bg-mandats_qo3wfk_c_scale,w_4639.webp 4639w,
+          /images/bg-mandats_qo3wfk_c_scale,w_4850.webp 4850w,
+          /images/bg-mandats_qo3wfk_c_scale,w_5039.webp 5039w,
+          /images/bg-mandats_qo3wfk_c_scale,w_5109.webp 5109w,
+          /images/bg-mandats_qo3wfk_c_scale,w_5120.webp 5120w"
         type="image/webp"
       />
 
@@ -137,5 +86,50 @@ export const query = graphql`
         alt=""
         role="presentation"
       />
-    </picture> */
-}
+    </picture>
+
+    <Mandats />
+
+    <picture>
+      <source
+        sizes="100vw"
+        srcset="
+        /images/bg-organisation,w_256.webp 256w,
+        /images/bg-organisation,w_640.webp 640w,
+        /images/bg-organisation,w_844.webp 844w,
+        /images/bg-organisation,w_1280.webp 1280w,
+        /images/bg-organisation,w_1920.webp 1920w,
+        /images/bg-organisation,w_2560.webp 2560w,
+        /images/bg-organisation,w_3200.webp 3200w,
+        /images/bg-organisation,w_3840.webp 3840w,
+        /images/bg-organisation,w_5120.webp 5120w
+        "
+        type="image/webp"
+      />
+
+      <img
+        src="/images/bg-organisation,w_5120.jpg"
+        alt=""
+        role="presentation"
+        sizes="100vw"
+        srcset="
+        /images/bg-organisation,w_256.jpg 256w,
+        /images/bg-organisation,w_640.jpg 640w,
+        /images/bg-organisation,w_844.jpg 844w,
+        /images/bg-organisation,w_1280.jpg 1280w,
+        /images/bg-organisation,w_1920.jpg 1920w,
+        /images/bg-organisation,w_2560.jpg 2560w,
+        /images/bg-organisation,w_3200.jpg 3200w,
+        /images/bg-organisation,w_3840.jpg 3840w,
+        /images/bg-organisation,w_5120.jpg 5120w
+        "
+      />
+    </picture>
+
+    <Board />
+
+    <FooterView />
+  </Layout>
+)
+
+export default IndexPage
