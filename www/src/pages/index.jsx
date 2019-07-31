@@ -39,15 +39,39 @@ const IndexPage = ({ data }) => (
 
     <Mission />
 
-    <Image
-      fluid={{ ...data.bgMandats.childImageSharp.fluid, sizes: "100vw" }}
-    />
+    <picture>
+      <source
+        sizes="100vw"
+        srcSet={data.bgMandats.childImageSharp.fluid.srcSetWebp}
+        type="image/webp"
+      />
+
+      <img
+        src={data.bgMandats.childImageSharp.fluid.src}
+        alt=""
+        role="presentation"
+        sizes="100vw"
+        srcset={data.bgMandats.childImageSharp.fluid.srcSet}
+      />
+    </picture>
 
     <Mandats />
 
-    <Image
-      fluid={{ ...data.bgOrganisation.childImageSharp.fluid, sizes: "100vw" }}
-    />
+    <picture>
+      <source
+        sizes="100vw"
+        srcSet={data.bgOrganisation.childImageSharp.fluid.srcSetWebp}
+        type="image/webp"
+      />
+
+      <img
+        src={data.bgOrganisation.childImageSharp.fluid.src}
+        alt=""
+        role="presentation"
+        sizes="100vw"
+        srcset={data.bgOrganisation.childImageSharp.fluid.srcSet}
+      />
+    </picture>
 
     <Board />
 
@@ -62,14 +86,18 @@ export const query = graphql`
     bgMandats: file(name: { eq: "bg-mandats" }) {
       childImageSharp {
         fluid(maxWidth: 2560) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
+          src
+          srcSet
+          srcSetWebp
         }
       }
     }
     bgOrganisation: file(name: { eq: "bg-organisation" }) {
       childImageSharp {
         fluid(maxWidth: 2560) {
-          ...GatsbyImageSharpFluid_withWebp_noBase64
+          src
+          srcSet
+          srcSetWebp
         }
       }
     }
