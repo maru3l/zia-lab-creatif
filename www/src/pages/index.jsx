@@ -60,16 +60,16 @@ const IndexPage = ({ data }) => (
     <picture>
       <source
         sizes="100vw"
-        srcSet={data.bgOrganisation.childImageSharp.fluid.srcSetWebp}
+        srcSet={data.bgMandats.childImageSharp.fluid.srcSetWebp}
         type="image/webp"
       />
 
       <img
-        src={data.bgOrganisation.childImageSharp.fluid.src}
+        src={data.bgMandats.childImageSharp.fluid.src}
         alt=""
         role="presentation"
         sizes="100vw"
-        srcset={data.bgOrganisation.childImageSharp.fluid.srcSet}
+        srcset={data.bgMandats.childImageSharp.fluid.srcSet}
       />
     </picture>
 
@@ -92,14 +92,14 @@ export const query = graphql`
         }
       }
     }
-    bgOrganisation: file(name: { eq: "bg-organisation" }) {
-      childImageSharp {
-        fluid(maxWidth: 5120, quality: 100) {
-          src
-          srcSet
-          srcSetWebp
-        }
-      }
-    }
+    # bgOrganisation: file(name: { eq: "bg-organisation" }) {
+    #   childImageSharp {
+    #     fluid(maxWidth: 5120, quality: 100) {
+    #       src
+    #       srcSet
+    #       srcSetWebp
+    #     }
+    #   }
+    # }
   }
 `
