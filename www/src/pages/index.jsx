@@ -85,7 +85,7 @@ export const query = graphql`
   query IndexPage {
     bgMandats: file(name: { eq: "bg-mandats" }) {
       childImageSharp {
-        fluid(maxWidth: 2560, quality: 75) {
+        fluid(maxWidth: 5120, quality: 100) {
           src
           srcSet
           srcSetWebp
@@ -94,7 +94,7 @@ export const query = graphql`
     }
     bgOrganisation: file(name: { eq: "bg-organisation" }) {
       childImageSharp {
-        fluid(maxWidth: 2560, quality: 75) {
+        fluid(maxWidth: 5120, quality: 100) {
           src
           srcSet
           srcSetWebp
