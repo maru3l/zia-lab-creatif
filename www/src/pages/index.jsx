@@ -42,16 +42,16 @@ const IndexPage = ({ data }) => (
     <picture>
       <source
         sizes="100vw"
-        srcSet={data.bgMandats.childImageSharp.fluid.srcSetWebp}
+        srcSet={data.bgOrganisation.childImageSharp.fluid.srcSetWebp}
         type="image/webp"
       />
 
       <img
-        src={data.bgMandats.childImageSharp.fluid.src}
+        src={data.bgOrganisation.childImageSharp.fluid.src}
         alt=""
         role="presentation"
         sizes="100vw"
-        srcset={data.bgMandats.childImageSharp.fluid.srcSet}
+        srcset={data.bgOrganisation.childImageSharp.fluid.srcSet}
       />
     </picture>
 
@@ -60,16 +60,16 @@ const IndexPage = ({ data }) => (
     <picture>
       <source
         sizes="100vw"
-        srcSet={data.bgMandats.childImageSharp.fluid.srcSetWebp}
+        srcSet={data.bgOrganisation.childImageSharp.fluid.srcSetWebp}
         type="image/webp"
       />
 
       <img
-        src={data.bgMandats.childImageSharp.fluid.src}
+        src={data.bgOrganisation.childImageSharp.fluid.src}
         alt=""
         role="presentation"
         sizes="100vw"
-        srcset={data.bgMandats.childImageSharp.fluid.srcSet}
+        srcset={data.bgOrganisation.childImageSharp.fluid.srcSet}
       />
     </picture>
 
@@ -83,16 +83,7 @@ export default IndexPage
 
 export const query = graphql`
   query IndexPage {
-    bgMandats: file(name: { eq: "bg-mandats" }) {
-      childImageSharp {
-        fluid(maxWidth: 5120, quality: 100) {
-          src
-          srcSet
-          srcSetWebp
-        }
-      }
-    }
-    # bgOrganisation: file(name: { eq: "bg-organisation" }) {
+    # bgMandats: file(name: { eq: "bg-mandats" }) {
     #   childImageSharp {
     #     fluid(maxWidth: 5120, quality: 100) {
     #       src
@@ -101,5 +92,14 @@ export const query = graphql`
     #     }
     #   }
     # }
+    bgOrganisation: file(name: { eq: "bg-organisation" }) {
+      childImageSharp {
+        fluid(maxWidth: 5120, quality: 100) {
+          src
+          srcSet
+          srcSetWebp
+        }
+      }
+    }
   }
 `
