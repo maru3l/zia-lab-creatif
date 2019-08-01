@@ -1,5 +1,6 @@
 // vendors
 import React from "react"
+import { css } from "@emotion/core"
 
 // components
 import Layout from "../components/Layout"
@@ -12,6 +13,8 @@ import Mandats from "../views/Mandats"
 import Board from "../views/Board"
 import FooterView from "../views/footer"
 import Hero from "../views/Hero"
+import VectorInverseStar from "../images/VectorInverseStar"
+import { colors } from "../styles/variables"
 
 const IndexPage = () => (
   <Layout>
@@ -37,7 +40,18 @@ const IndexPage = () => (
 
     <Mission />
 
-    <picture>
+    <picture
+      css={css`
+        line-height: 0;
+        width: 100vw;
+        height: 100vw;
+        display: block;
+
+        > * {
+          object-fit: cover;
+        }
+      `}
+    >
       <source
         sizes="100vw"
         srcset="
@@ -90,10 +104,39 @@ const IndexPage = () => (
 
     <Mandats />
 
-    <picture>
-      <source
-        sizes="100vw"
-        srcset="
+    <div
+      css={css`
+        position: relative;
+      `}
+    >
+      <VectorInverseStar
+        css={css`
+          position: absolute;
+          top: ${(108 / 568) * 100}vw;
+        `}
+      />
+      <VectorInverseStar
+        css={css`
+          position: absolute;
+          bottom: ${(108 / 568) * 100}vw;
+        `}
+        color={colors.doublePearlLusta}
+      />
+      <picture
+        css={css`
+          line-height: 0;
+          width: 100vw;
+          height: ${(1168 / 593) * 100}vw;
+          display: block;
+
+          > * {
+            object-fit: cover;
+          }
+        `}
+      >
+        <source
+          sizes="100vw"
+          srcset="
         /images/bg-organisation,w_256.webp 256w,
         /images/bg-organisation,w_640.webp 640w,
         /images/bg-organisation,w_844.webp 844w,
@@ -104,15 +147,15 @@ const IndexPage = () => (
         /images/bg-organisation,w_3840.webp 3840w,
         /images/bg-organisation,w_5120.webp 5120w
         "
-        type="image/webp"
-      />
+          type="image/webp"
+        />
 
-      <img
-        src="/images/bg-organisation,w_5120.jpg"
-        alt=""
-        role="presentation"
-        sizes="100vw"
-        srcset="
+        <img
+          src="/images/bg-organisation,w_5120.jpg"
+          alt=""
+          role="presentation"
+          sizes="100vw"
+          srcset="
         /images/bg-organisation,w_256.jpg 256w,
         /images/bg-organisation,w_640.jpg 640w,
         /images/bg-organisation,w_844.jpg 844w,
@@ -123,8 +166,9 @@ const IndexPage = () => (
         /images/bg-organisation,w_3840.jpg 3840w,
         /images/bg-organisation,w_5120.jpg 5120w
         "
-      />
-    </picture>
+        />
+      </picture>
+    </div>
 
     <Board />
 
