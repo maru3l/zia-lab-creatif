@@ -14,6 +14,8 @@ import Mandats from "../views/Mandats"
 import Board from "../views/Board"
 import FooterView from "../views/footer"
 import Hero from "../views/Hero"
+import Project from "../views/Project"
+import FeaturedProject from "../views/FeaturedProject"
 
 const IndexPage = ({ data }) => (
   <Layout>
@@ -39,11 +41,19 @@ const IndexPage = ({ data }) => (
 
     <Mission />
 
+    <FeaturedProject />
+
     <Image
       fluid={{ ...data.bgMandats.childImageSharp.fluid, sizes: "100vw" }}
     />
 
     <Mandats />
+
+    <Image
+      fluid={{ ...data.bgProjects.childImageSharp.fluid, sizes: "100vw" }}
+    />
+
+    <Project />
 
     <Image
       fluid={{ ...data.bgOrganisation.childImageSharp.fluid, sizes: "100vw" }}
@@ -67,6 +77,13 @@ export const query = graphql`
       }
     }
     bgOrganisation: file(name: { eq: "bg-organisation" }) {
+      childImageSharp {
+        fluid(maxWidth: 2560) {
+          ...GatsbyImageSharpFluid_withWebp_noBase64
+        }
+      }
+    }
+    bgProjects: file(name: { eq: "bg-projects" }) {
       childImageSharp {
         fluid(maxWidth: 2560) {
           ...GatsbyImageSharpFluid_withWebp_noBase64
