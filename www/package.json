@@ -62,11 +62,11 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "husky": "^4.0.10",
+    "husky": "^4.2.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-emotion": "^10.0.27",
-    "lint-staged": "^10.0.1",
+    "lint-staged": "^10.0.3",
     "pa11y-ci": "^2.3.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0",
@@ -76,7 +76,8 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-order": "^4.0.0",
     "stylelint-prettier": "^1.1.2",
-    "stylelint-processor-styled-components": "^1.9.0"
+    "stylelint-processor-styled-components": "^1.9.0",
+    "typescript": "^3.7.5"
   },
   "keywords": [
     "gatsby"
@@ -88,10 +89,10 @@
     "develop": "gatsby develop",
     "format": "npm run format:code && npm run format:style",
     "format:code": "eslint --fix --ignore-path ./.gitignore --ignore-path ./.prettierignore --ext .js,.jsx .",
-    "format:style": "stylelint './src/**/*.{js,jsx,css,scss}' --fix",
+    "format:style": "stylelint './src/**/*.{css,scss}' --fix",
     "lint": "npm run lint:code && npm run lint:style",
     "lint:code": "eslint --ignore-path .gitignore --ignore-path .prettierignore --ext .js,.jsx .",
-    "lint:style": "stylelint './src/**/*.{js,jsx}'",
+    "lint:style": "stylelint './src/**/*.{js,jsx,.css,.scss}'",
     "serve": "gatsby serve",
     "start": "npm run develop",
     "storybook": "start-storybook -s ./static -p 6006",
@@ -105,9 +106,10 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "npm run format:code",
-      "npm run format:style",
-      "git add"
+      "npm run format:code"
+    ],
+    "*.{css,scss}": [
+      "npm run format:style"
     ]
   },
   "jest": {
