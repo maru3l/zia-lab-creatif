@@ -114,6 +114,11 @@ const Navigation = () => {
               </Button>
             </li>
             <li>
+              <Button tag="a" href="#projets" onClick={() => setIsOpen(false)}>
+                Projets
+              </Button>
+            </li>
+            <li>
               <Button tag="a" href="#bios" onClick={() => setIsOpen(false)}>
                 Bios
               </Button>
