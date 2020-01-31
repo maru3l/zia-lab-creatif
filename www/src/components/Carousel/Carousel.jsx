@@ -28,6 +28,7 @@ const useAnimationFrame = callback => {
 const Carousel = ({ pictures, ...rest }) => {
   const pictureList = [...pictures, ...pictures]
   const [translateX, setTranslateX] = useState(0)
+  const [playing, setPlaying] = useState(true)
   const sliderRef = React.useRef()
   const containerRef = React.useRef()
 
@@ -35,16 +36,24 @@ const Carousel = ({ pictures, ...rest }) => {
     const containerRect = containerRef.current.getBoundingClientRect()
     const sliderRect = sliderRef.current.getBoundingClientRect()
 
-    //
-    if (
-      containerRect.left - sliderRect.left >
-      sliderRef.current.scrollWidth / 2 - 0.00005
-    ) {
-      setTranslateX(0)
-    } else {
-      setTranslateX(prevCount => (prevCount + deltaTime * 0.00005) % 100)
+    if (playing) {
+      if (
+        containerRect.left - sliderRect.left >
+        sliderRef.current.scrollWidth / 2 - 0.00005
+      ) {
+        setTranslateX(0)
+      } else {
+        setTranslateX(prevCount => (prevCount + deltaTime * 0.00005) % 100)
+      }
     }
   })
+
+  const handleMouseEnter = () => {
+    setPlaying(false)
+  }
+  const handleMouseLeave = () => {
+    setPlaying(true)
+  }
 
   return (
     <div
@@ -54,6 +63,8 @@ const Carousel = ({ pictures, ...rest }) => {
         height: 100%;
       `}
       {...rest}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div
         ref={sliderRef}
