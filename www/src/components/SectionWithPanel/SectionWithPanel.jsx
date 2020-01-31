@@ -96,7 +96,8 @@ const SectionWithPanel = ({ children, title, ...props }) => {
                 margin: 0;
 
                 ${breakpoints.mediaQueries.ratio11} {
-                  writing-mode: sideways-lr;
+                  writing-mode: vertical-lr;
+                  transform: rotate(180deg);
                 }
               `}
             >

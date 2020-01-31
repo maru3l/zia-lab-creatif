@@ -157,7 +157,8 @@ const FeaturedProject = () => {
                 font-size: ${38 / 10}em;
                 letter-spacing: ${59 / 1000}em;
                 margin: 0;
-                writing-mode: sideways-lr;
+                writing-mode: vertical-lr;
+                transform: rotate(180deg);
                 max-height: ${300 / 38}em;
                 ${fluidRange(
                   {

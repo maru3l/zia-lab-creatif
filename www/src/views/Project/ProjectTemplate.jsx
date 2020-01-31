@@ -9,6 +9,7 @@ import { breakpoints, transition } from "../../styles/variables"
 import PictureMontage from "../../components/PictureMontage/PictureMontage"
 import BaseBlockContent from "@sanity/block-content-to-react"
 import Carousel from "../../components/Carousel/Carousel"
+import Button from "../../components/Button/Button"
 
 const Wrapper = styled.div`
   width: 100vh;
@@ -71,7 +72,8 @@ const ProjectTemplate = ({ onInViewport, onOutViewport, project }) => {
             font-size: ${38 / 10}em;
             letter-spacing: ${59 / 1000}em;
             margin: 0;
-            writing-mode: sideways-lr;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
             max-height: ${300 / 38}em;
             ${fluidRange(
               {
