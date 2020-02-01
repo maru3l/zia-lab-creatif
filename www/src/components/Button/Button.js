@@ -6,15 +6,78 @@ import { fluidRange } from "polished"
 
 // styles
 import { colors, transition } from "../../styles/variables"
+import { useEffect } from "react"
+import { useState } from "react"
+import { array } from "prop-types"
 
 const components = {
   link: Link,
-  a: ({ children, ...rest }) => <a {...rest}>{children}</a>,
-  href: ({ children, ...rest }) => <a {...rest}>{children}</a>,
-  button: ({ children, ...rest }) => <button {...rest}>{children}</button>,
+  a: React.forwardRef(({ children, ...rest }, ref) => (
+    <a ref={ref} {...rest}>
+      {children}
+    </a>
+  )),
+  href: React.forwardRef(({ children, ...rest }, ref) => (
+    <a ref={ref} {...rest}>
+      {children}
+    </a>
+  )),
+  button: React.forwardRef(({ children, ...rest }, ref) => (
+    <button ref={ref} {...rest}>
+      {children}
+    </button>
+  )),
+}
+
+const getRGB = str => {
+  return str
+    .substring(str.lastIndexOf("(") + 1, str.lastIndexOf(")"))
+    .split(", ")
+    .map(x => Number(x))
+}
+
+const rgbToHex = (r, g, b) =>
+  "#" +
+  [Number(r), Number(g), Number(b)]
+    .map(x => {
+      const hex = x.toString(16)
+      return hex.length === 1 ? "0" + hex : hex
+    })
+    .join("")
+
+const getAncesterCssValue = (element, params = []) => {
+  const styles = getComputedStyle(element)
+
+  const results = params.map(key => {
+    if (key === "background-color" && styles[key] === "rgba(0, 0, 0, 0)")
+      return undefined
+
+    return styles[key]
+  })
+
+  if (results.includes(undefined)) {
+    const newParams = []
+
+    results.forEach((value, index) => {
+      if (typeof value === "undefined") {
+        newParams.push(params[index])
+      }
+    })
+
+    getAncesterCssValue(element.parentNode, newParams).forEach((value, i) => {
+      const index = params.indexOf(newParams[i])
+
+      results[index] = value
+    })
+  }
+
+  return results
 }
 
 const Button = ({ children, tag, to, ...rest }) => {
+  const buttonRef = React.createRef()
+  const [color, setColor] = useState(colors.doublePearlLusta)
+  const [underlineColor, setUnderlineColor] = useState(colors.scarlet)
   const Tag = components[tag || "button"]
 
   const props = {
@@ -22,6 +85,37 @@ const Button = ({ children, tag, to, ...rest }) => {
     href: tag === `href` || tag === `a` ? to : undefined,
     ...rest,
   }
+
+  useEffect(() => {
+    const response = getAncesterCssValue(buttonRef.current.parentNode, [
+      "background-color",
+      "color",
+    ])
+
+    console.log(response)
+
+    const [bgColor, fontColor] = response
+
+    const fontColorRGB = getRGB(fontColor)
+    const fontColorHex = rgbToHex(
+      fontColorRGB[0],
+      fontColorRGB[1],
+      fontColorRGB[2]
+    )
+
+    const bgColorRGB = getRGB(bgColor)
+    const bgColorHex = rgbToHex(bgColorRGB[0], bgColorRGB[1], bgColorRGB[2])
+
+    setColor(fontColorHex)
+
+    if (fontColorHex === colors.scarlet) {
+      setUnderlineColor(colors.prussianBlue)
+    }
+
+    if (bgColorHex === "#d05935") {
+      setUnderlineColor(colors.prussianBlue)
+    }
+  }, [buttonRef])
 
   const buttonStyles = css`
     font-family: inherit;
@@ -33,7 +127,7 @@ const Button = ({ children, tag, to, ...rest }) => {
     border: 0;
     font-size: ${41 / 10}rem;
     letter-spacing: ${10 / 1000}em;
-    color: ${colors.doublePearlLusta};
+    color: ${color};
     position: relative;
     z-index: 1;
     padding: 0 0.02em;
@@ -50,7 +144,7 @@ const Button = ({ children, tag, to, ...rest }) => {
     )}
 
     &:after {
-      background-color: ${colors.scarlet};
+      background-color: ${underlineColor};
       height: calc(${6.715 / 41}em + 100%);
       width: 100%;
       display: block;
@@ -81,7 +175,7 @@ const Button = ({ children, tag, to, ...rest }) => {
   }
 
   return (
-    <Tag {...props} css={style}>
+    <Tag {...props} css={style} ref={buttonRef}>
       {children}
     </Tag>
   )
