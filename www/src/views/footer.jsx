@@ -15,6 +15,7 @@ const FooterView = () => (
     id="collaborer"
     css={css`
       background-color: ${colors.prussianBlue};
+      color: ${colors.doublePearlLusta};
     `}
   >
     <div
@@ -43,7 +44,6 @@ const FooterView = () => (
       <div
         css={css`
           display: grid;
-          color: ${colors.doublePearlLusta};
           grid-gap: 40px;
           margin: 40px;
           font-size: ${6.45 / 10}rem;

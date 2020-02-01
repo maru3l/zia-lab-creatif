@@ -94,6 +94,7 @@ const Navigation = () => {
           role="navigation"
           css={css`
             margin: 40px;
+            color: ${colors.doublePearlLusta};
           `}
         >
           <ul
