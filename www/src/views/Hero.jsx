@@ -44,48 +44,27 @@ class Hero extends Component {
   }
 
   onMouseMove(e) {
-    const { offsetRotation, offsetX, offsetY, width } = this.state
-
     this.hasMouse = true
-
-    const radius = 945 / 2
-
-    const dx = e.pageX / window.innerWidth
-    const dy = e.pageY / window.innerHeight
-
-    const hx = dx - 0.5
-    const hy = dy - 0.5
-
-    const tx = hx * radius * -2
-    const ty = hy * radius * 2
-    const tr = Math.atan2(hy, hx)
-
-    const delta = tr - offsetRotation
-    const theta = Math.atan2(Math.sin(delta), Math.cos(delta))
-
-    const ease = 0.1
-
-    this.setState({
-      offsetX: offsetX + (tx - offsetX) * ease,
-      offsetY: offsetY + (ty - offsetY) * ease,
-      offsetRotation: offsetRotation + (theta - offsetRotation) * ease,
-      width,
-    })
+    this.positionX = e.pageX
+    this.positionY = e.pageY
   }
 
   onTicking() {
     const { offsetRotation, offsetX, offsetY, width } = this.state
 
-    if (!this.isTicking && !this.hasMouse) {
+    if (!this.isTicking) {
       this.isTicking = true
 
-      const randomX =
-        window.innerWidth - Math.sin(this.tick) * window.innerWidth
-      const randomY =
-        window.innerHeight - Math.cos(this.tick * 2) * window.innerHeight
+      const positionX = this.hasMouse
+        ? this.positionX
+        : window.innerWidth - Math.sin(this.tick) * window.innerWidth
 
-      const dx = randomX / window.innerWidth
-      const dy = randomY / window.innerHeight
+      const positionY = this.hasMouse
+        ? this.positionY
+        : window.innerHeight - Math.cos(this.tick * 2) * window.innerHeight
+
+      const dx = positionX / window.innerWidth
+      const dy = positionY / window.innerHeight
 
       const radius = 945 / 2
 
