@@ -1,0 +1,23 @@
+{
+  "name": "zia-lab-creatif",
+  "scope": "wldlab",
+  "version": 2,
+  "builds": [
+    {
+      "src": "www/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "public"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/www/$1",
+      "headers": {
+        "x-request-path": "$1"
+      }
+    }
+  ]
+}
