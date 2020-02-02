@@ -6,9 +6,8 @@ import { fluidRange } from "polished"
 
 // styles
 import { colors, transition } from "../../styles/variables"
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
 import { useState } from "react"
-import { array } from "prop-types"
 
 const components = {
   link: Link,
@@ -74,7 +73,7 @@ const getAncesterCssValue = (element, params = []) => {
   return results
 }
 
-const Button = ({ children, tag, to, ...rest }) => {
+const Button = ({ children, tag, to, fitWithBgColor, ...rest }) => {
   const buttonRef = React.createRef()
   const [color, setColor] = useState(colors.doublePearlLusta)
   const [underlineColor, setUnderlineColor] = useState(colors.scarlet)
@@ -86,36 +85,49 @@ const Button = ({ children, tag, to, ...rest }) => {
     ...rest,
   }
 
-  useEffect(() => {
-    const response = getAncesterCssValue(buttonRef.current.parentNode, [
-      "background-color",
-      "color",
-    ])
+  useLayoutEffect(() => {
+    if (fitWithBgColor) {
+      const response = getAncesterCssValue(buttonRef.current.parentNode, [
+        "background-color",
+        "color",
+      ])
 
-    console.log(response)
+      const [bgColor, fontColor] = response
 
-    const [bgColor, fontColor] = response
+      const fontColorRGB = getRGB(fontColor)
+      const fontColorHex = rgbToHex(
+        fontColorRGB[0],
+        fontColorRGB[1],
+        fontColorRGB[2]
+      )
 
-    const fontColorRGB = getRGB(fontColor)
-    const fontColorHex = rgbToHex(
-      fontColorRGB[0],
-      fontColorRGB[1],
-      fontColorRGB[2]
-    )
+      const bgColorRGB = getRGB(bgColor)
+      const bgColorHex = rgbToHex(bgColorRGB[0], bgColorRGB[1], bgColorRGB[2])
 
-    const bgColorRGB = getRGB(bgColor)
-    const bgColorHex = rgbToHex(bgColorRGB[0], bgColorRGB[1], bgColorRGB[2])
+      setColor(fontColorHex)
 
-    setColor(fontColorHex)
+      if (
+        fontColorHex === colors.scarlet &&
+        bgColorHex === colors.doublePearlLusta
+      ) {
+        setUnderlineColor(colors.prussianBlue)
+      }
 
-    if (fontColorHex === colors.scarlet) {
-      setUnderlineColor(colors.prussianBlue)
+      if (
+        bgColorHex === colors.scarlet &&
+        fontColorHex === colors.doublePearlLusta
+      ) {
+        setUnderlineColor(colors.prussianBlue)
+      }
+
+      if (
+        bgColorHex === colors.prussianBlue &&
+        fontColorHex === colors.doublePearlLusta
+      ) {
+        setUnderlineColor(colors.scarlet)
+      }
     }
-
-    if (bgColorHex === "#d05935") {
-      setUnderlineColor(colors.prussianBlue)
-    }
-  }, [buttonRef])
+  }, [buttonRef, fitWithBgColor])
 
   const buttonStyles = css`
     font-family: inherit;
@@ -143,9 +155,10 @@ const Button = ({ children, tag, to, ...rest }) => {
       "768px"
     )}
 
-    &:after {
+    &:before {
       background-color: ${underlineColor};
-      height: calc(${6.715 / 41}em + 100%);
+      /* height: calc(${6.715 / 41}em + 100%); */
+      height: 100%;
       width: 100%;
       display: block;
       content: "";
@@ -153,15 +166,27 @@ const Button = ({ children, tag, to, ...rest }) => {
       top: 0;
       left: 0;
       z-index: -1;
-      transform: scaleY(0.1);
+      transform: scaleY(0);
       transform-origin: bottom;
       transition: transform ${transition.speed.default}
         ${transition.curve.default};
     }
 
+    &:after {
+      background-color: ${underlineColor};
+      /* height: ${6.715 / 41}em; */
+      height: 9px;
+      width: 100%;
+      display: block;
+      content: "";
+      position: absolute;
+      top: 99%;
+      left: 0;
+    }
+
     :hover,
     :focus {
-      &:after {
+      &:before {
         transform: scaleY(1);
         outline: 0;
       }
@@ -175,7 +200,7 @@ const Button = ({ children, tag, to, ...rest }) => {
   }
 
   return (
-    <Tag {...props} css={style} ref={buttonRef}>
+    <Tag css={style} {...props} ref={buttonRef}>
       {children}
     </Tag>
   )
