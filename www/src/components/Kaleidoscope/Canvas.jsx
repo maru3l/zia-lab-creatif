@@ -7,33 +7,12 @@ class Canvas extends Component {
   constructor(props) {
     super(props)
 
-    // this.myContext = React.createRef()
-    // this.myImg = React.createRef()
-
     this.saveContext = this.saveContext.bind(this)
     this.saveImg = this.saveImg.bind(this)
   }
 
-  // componentDidMount() {
-  //   console.log(this.myImg)
-
-  //   this.myImg.onload = () => {
-  //     console.log("image has load")
-
-  //     this.img = this.myImg
-
-  //     this.ctx.fillStyle = this.ctx.createPattern(this.img, "repeat")
-
-  //     console.log(this.img)
-
-  //     this.forceUpdate()
-  //   }
-  // }
-
   componentDidUpdate() {
     const { offsetX, offsetY, offsetRotation, width } = this.props
-
-    console.log(`image from did update : ${this.img}`)
 
     if (!this.img) return
 
