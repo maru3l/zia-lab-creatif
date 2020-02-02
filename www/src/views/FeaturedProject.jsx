@@ -211,30 +211,33 @@ const FeaturedProject = () => {
             />
           </Wrapper>
 
-          <Wrapper
-            css={css`
-              display: flex;
-              height: 100%;
-              align-items: center;
-              justify-content: center;
-            `}
-          >
-            <button
+          {project.videoUrl && (
+            <Wrapper
               css={css`
-                appearance: none;
-                background-color: inherit;
-                border: none;
-                width: ${(80 / 560) * 100}vh;
-                cursor: pointer;
+                display: flex;
+                height: 100%;
+                align-items: center;
+                justify-content: center;
               `}
             >
-              <IconPlay
+              <a
                 css={css`
-                  fill: ${colors.doublePearlLusta};
+                  appearance: none;
+                  background-color: inherit;
+                  border: none;
+                  width: ${(80 / 560) * 100}vh;
+                  cursor: pointer;
                 `}
-              />
-            </button>
-          </Wrapper>
+                href={project.videoUrl}
+              >
+                <IconPlay
+                  css={css`
+                    fill: ${colors.doublePearlLusta};
+                  `}
+                />
+              </a>
+            </Wrapper>
+          )}
         </div>
       </div>
     </section>

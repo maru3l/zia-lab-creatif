@@ -10,6 +10,7 @@ import PictureMontage from "../../components/PictureMontage/PictureMontage"
 import BaseBlockContent from "@sanity/block-content-to-react"
 import Carousel from "../../components/Carousel/Carousel"
 import Button from "../../components/Button/Button"
+import IconPlay from "../../images/IconPlay"
 
 const Wrapper = styled.div`
   width: 100vh;
@@ -201,7 +202,22 @@ const ProjectTemplate = ({
                   border: 1px solid black;
                 `}
               >
-                Vidéo
+                <a
+                  css={css`
+                    appearance: none;
+                    background-color: inherit;
+                    border: none;
+                    width: ${(80 / 560) * 100}vh;
+                    cursor: pointer;
+                  `}
+                  href={project.videoUrl}
+                >
+                  <IconPlay
+                    css={css`
+                      fill: ${textColor};
+                    `}
+                  />
+                </a>
               </Wrapper>
             )}
 
