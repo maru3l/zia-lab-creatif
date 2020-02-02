@@ -1,11 +1,11 @@
 // vendors
-import React from "react"
+import React, { useLayoutEffect, useEffect, useState } from "react"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
-import { useLayoutEffect } from "react"
-import { fluidRange } from "polished"
-import { useState } from "react"
-import { breakpoints, transition } from "../../styles/variables"
+import { fluidRange, transparentize } from "polished"
+import { RemoveScroll } from "react-remove-scroll"
+
+import { breakpoints, transition, zIndices } from "../../styles/variables"
 import PictureMontage from "../../components/PictureMontage/PictureMontage"
 import BaseBlockContent from "@sanity/block-content-to-react"
 import Carousel from "../../components/Carousel/Carousel"
@@ -18,8 +18,15 @@ const Wrapper = styled.div`
   min-height: 100vh;
 `
 
-const ProjectTemplate = ({ onInViewport, onOutViewport, project }) => {
+const ProjectTemplate = ({
+  onInViewport,
+  onOutViewport,
+  project,
+  backgroundColor,
+  textColor,
+}) => {
   const intersectionRef = React.useRef()
+  const sliderRef = React.useRef()
   const [open, setOpen] = useState(false)
 
   useLayoutEffect(() => {
@@ -48,7 +55,12 @@ const ProjectTemplate = ({ onInViewport, onOutViewport, project }) => {
   }, [intersectionRef, onInViewport, onOutViewport])
 
   const handleClick = () => {
-    setOpen(true)
+    sliderRef.current.scrollLeft = 0
+    setOpen(!open)
+  }
+
+  const handleWheel = e => {
+    sliderRef.current.scrollLeft = e.deltaY + sliderRef.current.scrollLeft
   }
 
   return (
@@ -56,6 +68,8 @@ const ProjectTemplate = ({ onInViewport, onOutViewport, project }) => {
       ref={intersectionRef}
       css={css`
         position: relative;
+        color: ${textColor};
+        background-color: ${transparentize(1, backgroundColor)};
       `}
     >
       <Wrapper
@@ -72,9 +86,8 @@ const ProjectTemplate = ({ onInViewport, onOutViewport, project }) => {
             font-size: ${38 / 10}em;
             letter-spacing: ${59 / 1000}em;
             margin: 0;
-            writing-mode: vertical-lr;
-            transform: rotate(180deg);
-            max-height: ${300 / 38}em;
+            transform: rotate(-90deg);
+            max-width: ${300 / 38}em;
             ${fluidRange(
               {
                 prop: "font-size",
@@ -92,117 +105,130 @@ const ProjectTemplate = ({ onInViewport, onOutViewport, project }) => {
               `}
           `}
         >
-          <button
-            type="button"
-            onClick={handleClick}
-            css={css`
-              appearance: none;
-              border: none;
-              margin: 0;
-              background: none;
-              padding: 0;
-              color: inherit;
-              font-family: inherit;
-              font-weight: inherit;
-              display: block;
-              cursor: pointer;
-            `}
-          >
+          <Button onClick={handleClick} fitWithBgColor>
             {project.title}
-          </button>
+          </Button>
         </h3>
       </Wrapper>
 
-      <section
-        css={css`
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          overflow-y: hidden;
-          transition: opacity ${transition.speed.slow}
-            ${transition.curve.default};
-
-          ${!open &&
-            css`
-              opacity: 0;
-              pointer-events: none;
-            `}
-        `}
-      >
-        <div
+      <RemoveScroll enabled={open}>
+        <section
+          onWheel={handleWheel}
+          ref={sliderRef}
           css={css`
-            display: flex;
-            width: ${project.videoUrl ? "400" : "300"}vw;
+            position: fixed;
+            z-index: ${zIndices.modal};
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: hidden;
+            background-color: ${backgroundColor};
+            transition: opacity ${transition.speed.slow}
+              ${transition.curve.default};
 
-            ${breakpoints.mediaQueries.ratio11} {
-              width: ${project.videoUrl ? "400" : "300"}vh;
-              padding: 0 calc(50vw - 50vh);
-            }
+            ${!open &&
+              css`
+                opacity: 0;
+                pointer-events: none;
+              `}
           `}
         >
-          <Wrapper
+          <div
             css={css`
               display: flex;
-              filter: grayscale();
+              width: ${project.videoUrl ? "450" : "350"}vw;
+
+              ${breakpoints.mediaQueries.ratio11} {
+                width: ${project.videoUrl ? "450" : "350"}vh;
+                padding: 0 calc(50vw - 50vh);
+              }
             `}
           >
-            <PictureMontage
-              picture={{
-                ...project.featureImage.image.asset.fluid,
-              }}
-              disposition={project.featureImage.disposition}
-              css={css`
-                height: 100vh;
-              `}
-            />
-          </Wrapper>
-
-          <Wrapper>
-            <div
-              css={css`
-                margin: ${(68 / 568) * 100}vh ${(138 / 568) * 100}vh;
-                columns: 2;
-                grid-column-gap: ${(30 / 568) * 100}vh;
-              `}
-            >
-              <BaseBlockContent blocks={project._rawDescription} />
-            </div>
-          </Wrapper>
-
-          <Wrapper
-            css={css`
-              display: flex;
-              height: 100%;
-              align-items: center;
-            `}
-          >
-            <Carousel
-              pictures={project.gallery.map(picture => ({
-                src: picture.asset.fluid.src,
-                srcSet: picture.asset.fluid.srcSet,
-                srcSetWebp: picture.asset.fluid.srcSetWebp,
-                alt: picture.alt,
-              }))}
-              css={css`
-                filter: grayscale();
-                /* mix-blend-mode: multiply; */
-              `}
-            />
-          </Wrapper>
-
-          {project.videoUrl && (
             <Wrapper
               css={css`
-                border: 1px solid black;
+                display: flex;
+                filter: grayscale();
               `}
             >
-              Vidéo
+              <PictureMontage
+                picture={{
+                  ...project.featureImage.image.asset.fluid,
+                }}
+                disposition={project.featureImage.disposition}
+                css={css`
+                  height: 100vh;
+                `}
+              />
             </Wrapper>
-          )}
-        </div>
-      </section>
+
+            <Wrapper>
+              <div
+                css={css`
+                  margin: ${(68 / 568) * 100}vh ${(138 / 568) * 100}vh;
+                  columns: 2;
+                  grid-column-gap: ${(30 / 568) * 100}vh;
+                `}
+              >
+                <BaseBlockContent blocks={project._rawDescription} />
+              </div>
+            </Wrapper>
+
+            <Wrapper
+              css={css`
+                display: flex;
+                height: 100%;
+                align-items: center;
+              `}
+            >
+              <Carousel
+                pictures={project.gallery.map(picture => ({
+                  src: picture.asset.fluid.src,
+                  srcSet: picture.asset.fluid.srcSet,
+                  srcSetWebp: picture.asset.fluid.srcSetWebp,
+                  alt: picture.alt,
+                }))}
+                css={css`
+                  filter: grayscale();
+                  /* mix-blend-mode: multiply; */
+                `}
+              />
+            </Wrapper>
+
+            {project.videoUrl && (
+              <Wrapper
+                css={css`
+                  border: 1px solid black;
+                `}
+              >
+                Vidéo
+              </Wrapper>
+            )}
+
+            <div
+              css={css`
+                width: 50vh;
+                max-width: 100vw;
+                margin: auto;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              `}
+            >
+              <div
+                css={css`
+                  transform: rotate(-90deg);
+                `}
+              >
+                <Button onClick={handleClick} fitWithBgColor>
+                  Fermer
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RemoveScroll>
     </article>
   )
 }

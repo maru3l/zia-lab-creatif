@@ -169,6 +169,8 @@ const ProjectView = () => {
 
       {projects.map(({ node }, index) => (
         <ProjectTemplate
+          backgroundColor={colorState.background}
+          textColor={colorState.color}
           key={node.id}
           onInViewport={() => handleInViewport(index)}
           project={node}
