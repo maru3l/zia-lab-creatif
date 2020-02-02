@@ -7,15 +7,15 @@ import VisuallyHidden from "@reach/visually-hidden"
 // variables
 import { colors } from "../../styles/variables"
 
-import BoardMember from "./components/BoardMember"
+import TeamMember from "./components/TeamMember"
 import ClipPathPortrait from "../../images/ClipPathPortrait"
 
-const BoardView = () => {
+const TeamView = () => {
   const {
-    boardMembers: { edges: boardMembers },
+    teamMembers: { edges: teamMembers },
   } = useStaticQuery(graphql`
     query {
-      boardMembers: allSanityBoardMember {
+      teamMembers: allSanityTeamMember {
         edges {
           node {
             name
@@ -55,22 +55,22 @@ const BoardView = () => {
         `}
       >
         <VisuallyHidden>
-          <h2>Conseil d'administration</h2>
+          <h2>Équipe de gestion</h2>
         </VisuallyHidden>
 
-        {boardMembers.map(({ node }, index) => (
-          <BoardMember
+        {teamMembers.map(({ node }, index) => (
+          <TeamMember
             key={index}
             name={node.name}
             role={node.role}
             portrait={node.portrait}
           >
             {node._rawDescription}
-          </BoardMember>
+          </TeamMember>
         ))}
       </div>
     </section>
   )
 }
 
-export default BoardView
+export default TeamView

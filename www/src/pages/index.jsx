@@ -11,7 +11,7 @@ import SEO from "../components/seo"
 import Home from "../views/Home"
 import Mission from "../views/Mission"
 import Mandats from "../views/Mandats"
-import Board from "../views/Board"
+import Team from "../views/Team"
 import FooterView from "../views/footer"
 import Hero from "../views/Hero"
 
@@ -49,7 +49,7 @@ const IndexPage = ({ data }) => (
       fluid={{ ...data.bgOrganisation.childImageSharp.fluid, sizes: "100vw" }}
     />
 
-    <Board />
+    <Team />
 
     <FooterView />
   </Layout>

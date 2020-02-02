@@ -11,6 +11,7 @@ import featureImage from './objects/featureImage'
 
 // documents
 import boardMember from './documents/boardMember'
+import teamMember from './documents/teamMember'
 import project from './documents/project'
 
 export default createSchema({
@@ -18,6 +19,7 @@ export default createSchema({
   types: schemaTypes.concat([
     blockquote,
     boardMember,
+    teamMember,
     project,
     figure,
     meta,

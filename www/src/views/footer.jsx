@@ -2,6 +2,7 @@
 import React from "react"
 import { css } from "@emotion/core"
 import VisuallyHidden from "@reach/visually-hidden"
+import { useStaticQuery, graphql } from "gatsby"
 
 import { breakpoints, colors } from "../styles/variables"
 
@@ -10,128 +11,145 @@ import Button from "../components/Button/Button"
 
 import logo from "../images/vector-logoFooter.svg"
 
-const FooterView = () => (
-  <footer
-    id="collaborer"
-    css={css`
-      background-color: ${colors.prussianBlue};
-    `}
-  >
-    <div
+const FooterView = () => {
+  const {
+    boardMembers: { edges: boardMembers },
+  } = useStaticQuery(graphql`
+    query {
+      boardMembers: allSanityBoardMember {
+        edges {
+          node {
+            name
+            role
+          }
+        }
+      }
+    }
+  `)
+
+  return (
+    <footer
+      id="collaborer"
       css={css`
-        width: 100vh;
-        min-height: 100vh;
-        max-width: 100vw;
-        display: flex;
-        flex-direction: column;
-        margin: auto;
+        background-color: ${colors.prussianBlue};
       `}
     >
       <div
         css={css`
-          flex-grow: 1;
+          width: 100vh;
+          min-height: 100vh;
+          max-width: 100vw;
           display: flex;
-          justify-content: center;
-          align-items: center;
+          flex-direction: column;
+          margin: auto;
         `}
       >
-        <Button href="mailto:contact@zialabcreatif.com" tag="href">
-          Collaborer
-        </Button>
-      </div>
+        <div
+          css={css`
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+        >
+          <Button href="mailto:contact@zialabcreatif.com" tag="href">
+            Collaborer
+          </Button>
+        </div>
 
-      <div
-        css={css`
-          display: grid;
-          color: ${colors.doublePearlLusta};
-          grid-gap: 40px;
-          margin: 40px;
-          font-size: ${6.45 / 10}rem;
-          grid-template-columns: repeat(2, 1fr);
-          grid-template-rows: repeat(2, 1fr);
-
-          ${breakpoints.mediaQueries.ratio11} {
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(1, 1fr);
-          }
-
-          p,
-          ul {
-            margin-top: 0;
-            margin-bottom: calc(1em * var(--line-height));
-          }
-
-          a {
+        <div
+          css={css`
+            display: grid;
             color: ${colors.doublePearlLusta};
-            text-decoration: none;
-            display: block;
-          }
+            grid-gap: 40px;
+            margin: 40px;
+            font-size: ${6.45 / 10}rem;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
 
-          ul {
-            list-style: none;
-            padding: 0;
-          }
-        `}
-      >
-        <div>
-          <img
-            src={logo}
-            alt=""
-            css={{ marginTop: `-${260 / 20}%`, width: "100%" }}
-          />
-        </div>
-        <div>
-          <VisuallyHidden>
-            <p>Adresse courriel</p>
-          </VisuallyHidden>
+            ${breakpoints.mediaQueries.ratio11} {
+              grid-template-columns: repeat(4, 1fr);
+              grid-template-rows: repeat(1, 1fr);
+            }
 
-          <p>
-            <a href="mailto:contact@zialabcreatif.com">
-              contact@
-              <br />
-              zialabcreatif.com
-            </a>
-          </p>
+            p,
+            ul {
+              margin-top: 0;
+              margin-bottom: calc(1em * var(--line-height));
+            }
 
-          <VisuallyHidden>
-            <p>Réseaux sociaux</p>
-          </VisuallyHidden>
+            a {
+              color: ${colors.doublePearlLusta};
+              text-decoration: none;
+              display: block;
+            }
 
-          <ul>
-            <li>
-              <a href="https://www.facebook.com/zialabcreatif">facebook</a>
-            </li>
+            ul {
+              list-style: none;
+              padding: 0;
+            }
+          `}
+        >
+          <div>
+            <img
+              src={logo}
+              alt=""
+              css={{ marginTop: `-${260 / 20}%`, width: "100%" }}
+            />
+          </div>
+          <div>
+            <VisuallyHidden>
+              <p>Adresse courriel</p>
+            </VisuallyHidden>
 
-            <li>
-              <a href="https://www.instagram.com/zialabcreatif/">instagram</a>
-            </li>
-          </ul>
-        </div>
+            <p>
+              <a href="mailto:contact@zialabcreatif.com">
+                contact@
+                <br />
+                zialabcreatif.com
+              </a>
+            </p>
 
-        <div>
-          <p>
-            Siège social situé <br />à la Maison pour la danse <br />
-            -<br />
-            336 rue du Roi, suite 220 <br />
-            Québec, Québec <br />
-            G1K 2W5
-          </p>
-        </div>
+            <VisuallyHidden>
+              <p>Réseaux sociaux</p>
+            </VisuallyHidden>
 
-        <div>
-          <p>Membres du conseil d'administration&thinsp;:</p>
+            <ul>
+              <li>
+                <a href="https://www.facebook.com/zialabcreatif">facebook</a>
+              </li>
 
-          <ul>
-            <li>Pascal Asselin, président</li>
+              <li>
+                <a href="https://www.instagram.com/zialabcreatif/">instagram</a>
+              </li>
+            </ul>
+          </div>
 
-            <li>Geneviève Duong, secraitaire</li>
+          <div>
+            <p>
+              Siège social situé <br />à la Maison pour la danse <br />
+              -<br />
+              336 rue du Roi, suite 220 <br />
+              Québec, Québec <br />
+              G1K 2W5
+            </p>
+          </div>
 
-            <li>Marie-chantale Béland, trésorière</li>
-          </ul>
+          <div>
+            <p>Membres du conseil d'administration&thinsp;:</p>
+
+            <ul>
+              {boardMembers.map(({ node }) => (
+                <li>
+                  {node.name}, {node.role}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
-)
+    </footer>
+  )
+}
 
 export default FooterView

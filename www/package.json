@@ -29,7 +29,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "typescript": "^3.7.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -88,7 +89,7 @@
     "develop": "gatsby develop",
     "format": "npm run format:code && npm run format:style",
     "format:code": "eslint --fix --ignore-path ./.gitignore --ignore-path ./.prettierignore --ext .js,.jsx .",
-    "format:style": "stylelint './src/**/*.{js,jsx,css,scss}' --fix",
+    "format:style": "stylelint './src/**/*.{css,scss}' --fix",
     "lint": "npm run lint:code && npm run lint:style",
     "lint:code": "eslint --ignore-path .gitignore --ignore-path .prettierignore --ext .js,.jsx .",
     "lint:style": "stylelint './src/**/*.{js,jsx}'",
@@ -106,6 +107,9 @@
   "lint-staged": {
     "*.{js,jsx}": [
       "npm run format:code",
+      "git add"
+    ],
+    "*.{css,scss}": [
       "npm run format:style",
       "git add"
     ]
