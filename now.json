@@ -11,6 +11,12 @@
       }
     }
   ],
+  "build": {
+    "env": {
+      "SANITY_PROJECT_ID": "bn3qv8hr",
+      "SANITY_DATASET": "production"
+    }
+  },
   "routes": [
     {
       "src": "/(.*)",
