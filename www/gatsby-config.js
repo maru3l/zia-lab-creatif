@@ -19,13 +19,12 @@ module.exports = {
     {
       resolve: "gatsby-plugin-sharp",
       options: {
-        useMozJpeg: true,
+        useMozJpeg: false,
         stripMetadata: true,
         defaultQuality: 100,
       },
     },
     "gatsby-plugin-sitemap",
-    // "gatsby-plugin-subfont",
     {
       resolve: "gatsby-source-filesystem",
       options: {
