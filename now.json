@@ -1,0 +1,29 @@
+{
+  "name": "zia-lab-creatif",
+  "scope": "wldlab",
+  "version": 2,
+  "builds": [
+    {
+      "src": "www/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "public"
+      }
+    }
+  ],
+  "build": {
+    "env": {
+      "SANITY_PROJECT_ID": "bn3qv8hr",
+      "SANITY_DATASET": "production"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/www/$1",
+      "headers": {
+        "x-request-path": "$1"
+      }
+    }
+  ]
+}

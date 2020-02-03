@@ -10,7 +10,7 @@ import SEO from "../components/seo"
 import Home from "../views/Home"
 import Mission from "../views/Mission"
 import Mandats from "../views/Mandats"
-import Board from "../views/Board"
+import Team from "../views/Team"
 import FooterView from "../views/footer"
 import Hero from "../views/Hero"
 import VectorInverseStar from "../images/VectorInverseStar"
@@ -170,7 +170,7 @@ const IndexPage = () => (
       </picture>
     </div>
 
-    <Board />
+    <Team />
 
     <FooterView />
   </Layout>

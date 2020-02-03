@@ -102,7 +102,7 @@ const Text = styled.div`
   columns: 2;
 `
 
-const BoardMember = ({ name, role, portrait, children }) => (
+const TeamMember = ({ name, role, portrait, children }) => (
   <Article>
     <PortraitWrapper>
       {portrait && (
@@ -142,4 +142,4 @@ const BoardMember = ({ name, role, portrait, children }) => (
   </Article>
 )
 
-export default BoardMember
+export default TeamMember

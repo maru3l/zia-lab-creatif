@@ -7,17 +7,23 @@ import blockquote from './objects/blockquote'
 import figure from './objects/figure'
 import meta from './objects/meta'
 import richText from './objects/richText'
+import featureImage from './objects/featureImage'
 
 // documents
 import boardMember from './documents/boardMember'
+import teamMember from './documents/teamMember'
+import project from './documents/project'
 
 export default createSchema({
-  name: 'ZIA',
+  name: "ZIA",
   types: schemaTypes.concat([
     blockquote,
     boardMember,
+    teamMember,
+    project,
     figure,
     meta,
     richText,
+    featureImage,
   ])
-})
+});
