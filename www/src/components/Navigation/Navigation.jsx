@@ -94,6 +94,7 @@ const Navigation = () => {
           role="navigation"
           css={css`
             margin: 40px;
+            color: ${colors.doublePearlLusta};
           `}
         >
           <ul
@@ -111,6 +112,11 @@ const Navigation = () => {
             <li>
               <Button tag="a" href="#mandats" onClick={() => setIsOpen(false)}>
                 Mandats
+              </Button>
+            </li>
+            <li>
+              <Button tag="a" href="#projets" onClick={() => setIsOpen(false)}>
+                Projets
               </Button>
             </li>
             <li>
