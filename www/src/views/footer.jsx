@@ -32,6 +32,7 @@ const FooterView = () => {
       id="collaborer"
       css={css`
         background-color: ${colors.prussianBlue};
+        color: ${colors.doublePearlLusta};
       `}
     >
       <div

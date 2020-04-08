@@ -1,5 +1,7 @@
 // vendors
 import React from "react"
+import { graphql } from "gatsby"
+import Image from "gatsby-image"
 import { css } from "@emotion/core"
 
 // components
@@ -13,48 +15,54 @@ import Mandats from "../views/Mandats"
 import Team from "../views/Team"
 import FooterView from "../views/footer"
 import Hero from "../views/Hero"
+import Project from "../views/Project"
+import FeaturedProject from "../views/FeaturedProject"
 import VectorInverseStar from "../images/VectorInverseStar"
 import { colors } from "../styles/variables"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO
-      keywords={[
-        "Zia Lab créatif",
-        "compagnie de création et production à Québec",
-        "danse contemporaine au Québec",
-        "création danse musique à Québec",
-        "spectacles danse musique à Québec",
-        "musique électronique au Québec",
-        "arts multi au Québec",
-        "Pascal Asselin",
-        "Millimetrik",
-        "Geneviève Duong",
-        "Geneviève Pascal",
-      ]}
-    />
+const IndexPage = ({ data }) => {
+  console.log(data)
+  return (
+    <Layout>
+      <SEO
+        keywords={[
+          "Zia Lab créatif",
+          "compagnie de création et production à Québec",
+          "danse contemporaine au Québec",
+          "création danse musique à Québec",
+          "spectacles danse musique à Québec",
+          "musique électronique au Québec",
+          "arts multi au Québec",
+          "Pascal Asselin",
+          "Millimetrik",
+          "Geneviève Duong",
+          "Geneviève Pascal",
+        ]}
+      />
 
-    <Hero />
+      <Hero />
 
-    <Home />
+      <Home />
 
-    <Mission />
+      <Mission />
 
-    <picture
-      css={css`
-        line-height: 0;
-        width: 100vw;
-        height: 100vw;
-        display: block;
+      <FeaturedProject />
 
-        > * {
-          object-fit: cover;
-        }
-      `}
-    >
-      <source
-        sizes="100vw"
-        srcset="
+      <picture
+        css={css`
+          line-height: 0;
+          width: 100vw;
+          height: 100vw;
+          display: block;
+
+          > * {
+            object-fit: cover;
+          }
+        `}
+      >
+        <source
+          sizes="100vw"
+          srcset="
           /images/bg-mandats_qo3wfk_c_scale,w_320.webp 320w,
           /images/bg-mandats_qo3wfk_c_scale,w_1661.webp 1661w,
           /images/bg-mandats_qo3wfk_c_scale,w_2170.webp 2170w,
@@ -72,12 +80,12 @@ const IndexPage = () => (
           /images/bg-mandats_qo3wfk_c_scale,w_5039.webp 5039w,
           /images/bg-mandats_qo3wfk_c_scale,w_5109.webp 5109w,
           /images/bg-mandats_qo3wfk_c_scale,w_5120.webp 5120w"
-        type="image/webp"
-      />
+          type="image/webp"
+        />
 
-      <img
-        sizes="100vw"
-        srcset="
+        <img
+          sizes="100vw"
+          srcset="
         /images/bg-mandats_qvp8kl_c_scale,w_320.jpg 320w,
         /images/bg-mandats_qvp8kl_c_scale,w_1128.jpg 1128w,
         /images/bg-mandats_qvp8kl_c_scale,w_1467.jpg 1467w,
@@ -96,47 +104,53 @@ const IndexPage = () => (
         /images/bg-mandats_qvp8kl_c_scale,w_3678.jpg 3678w,
         /images/bg-mandats_qvp8kl_c_scale,w_3820.jpg 3820w,
         /images/bg-mandats_qvp8kl_c_scale,w_5120.jpg 5120w"
-        src="/images/bg-mandats_qvp8kl_c_scale,w_5120.jpg"
-        alt=""
-        role="presentation"
-      />
-    </picture>
+          src="/images/bg-mandats_qvp8kl_c_scale,w_5120.jpg"
+          alt=""
+          role="presentation"
+        />
+      </picture>
 
-    <Mandats />
+      <Mandats />
 
-    <div
-      css={css`
-        position: relative;
-      `}
-    >
-      <VectorInverseStar
-        css={css`
-          position: absolute;
-          top: ${(108 / 568) * 100}vw;
-        `}
+      <Image
+        fluid={{ ...data.bgProjects.childImageSharp.fluid, sizes: "100vw" }}
       />
-      <VectorInverseStar
-        css={css`
-          position: absolute;
-          bottom: ${(108 / 568) * 100}vw;
-        `}
-        color={colors.doublePearlLusta}
-      />
-      <picture
-        css={css`
-          line-height: 0;
-          width: 100vw;
-          height: ${(1168 / 593) * 100}vw;
-          display: block;
 
-          > * {
-            object-fit: cover;
-          }
+      <Project />
+
+      <div
+        css={css`
+          position: relative;
         `}
       >
-        <source
-          sizes="100vw"
-          srcset="
+        <VectorInverseStar
+          css={css`
+            position: absolute;
+            top: ${(108 / 568) * 100}vw;
+          `}
+        />
+        <VectorInverseStar
+          css={css`
+            position: absolute;
+            bottom: ${(108 / 568) * 100}vw;
+          `}
+          color={colors.doublePearlLusta}
+        />
+        <picture
+          css={css`
+            line-height: 0;
+            width: 100vw;
+            height: ${(1168 / 593) * 100}vw;
+            display: block;
+
+            > * {
+              object-fit: cover;
+            }
+          `}
+        >
+          <source
+            sizes="100vw"
+            srcset="
         /images/bg-organisation,w_256.webp 256w,
         /images/bg-organisation,w_640.webp 640w,
         /images/bg-organisation,w_844.webp 844w,
@@ -147,15 +161,15 @@ const IndexPage = () => (
         /images/bg-organisation,w_3840.webp 3840w,
         /images/bg-organisation,w_5120.webp 5120w
         "
-          type="image/webp"
-        />
+            type="image/webp"
+          />
 
-        <img
-          src="/images/bg-organisation,w_5120.jpg"
-          alt=""
-          role="presentation"
-          sizes="100vw"
-          srcset="
+          <img
+            src="/images/bg-organisation,w_5120.jpg"
+            alt=""
+            role="presentation"
+            sizes="100vw"
+            srcset="
         /images/bg-organisation,w_256.jpg 256w,
         /images/bg-organisation,w_640.jpg 640w,
         /images/bg-organisation,w_844.jpg 844w,
@@ -166,14 +180,27 @@ const IndexPage = () => (
         /images/bg-organisation,w_3840.jpg 3840w,
         /images/bg-organisation,w_5120.jpg 5120w
         "
-        />
-      </picture>
-    </div>
+          />
+        </picture>
+      </div>
 
-    <Team />
+      <Team />
 
-    <FooterView />
-  </Layout>
-)
+      <FooterView />
+    </Layout>
+  )
+}
 
 export default IndexPage
+
+export const query = graphql`
+  query IndexPage {
+    bgProjects: file(name: { eq: "bg-projects" }) {
+      childImageSharp {
+        fluid(maxWidth: 2560) {
+          ...GatsbyImageSharpFluid_withWebp_noBase64
+        }
+      }
+    }
+  }
+`

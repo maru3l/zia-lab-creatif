@@ -75,15 +75,17 @@ const SectionWithPanel = ({ children, title, ...props }) => {
           >
             <VectorStar
               css={css`
+                display: none;
                 position: absolute;
                 width: ${42 / 36}em;
                 fill: ${colorsState.starColor};
                 top: 50%;
-                left: 125%;
                 opacity: 0;
                 z-index: -1;
+                left: 125%;
 
                 ${breakpoints.mediaQueries.ratio11} {
+                  display: block;
                   opacity: 1;
                 }
               `}
@@ -96,7 +98,8 @@ const SectionWithPanel = ({ children, title, ...props }) => {
                 margin: 0;
 
                 ${breakpoints.mediaQueries.ratio11} {
-                  writing-mode: sideways-lr;
+                  writing-mode: vertical-lr;
+                  transform: rotate(180deg);
                 }
               `}
             >
