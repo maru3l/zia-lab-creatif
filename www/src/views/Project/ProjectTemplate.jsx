@@ -61,7 +61,9 @@ const ProjectTemplate = ({
   }
 
   const handleWheel = e => {
-    sliderRef.current.scrollLeft = e.deltaY + sliderRef.current.scrollLeft
+    // console.log(sliderRef.current)
+    // console.log(sliderRef.current)
+    // sliderRef.current.scrollLeft = e.deltaY + sliderRef.current.scrollLeft
   }
 
   return (
@@ -123,10 +125,14 @@ const ProjectTemplate = ({
             left: 0;
             right: 0;
             bottom: 0;
-            overflow-y: hidden;
             background-color: ${backgroundColor};
+            overflow: auto;
             transition: opacity ${transition.speed.slow}
               ${transition.curve.default};
+
+            ${breakpoints.mediaQueries.ratio11} {
+              overflow-y: hidden;
+            }
 
             ${!open &&
               css`
@@ -137,10 +143,8 @@ const ProjectTemplate = ({
         >
           <div
             css={css`
-              display: flex;
-              width: ${project.videoUrl ? "450" : "350"}vw;
-
               ${breakpoints.mediaQueries.ratio11} {
+                display: flex;
                 width: ${project.videoUrl ? "450" : "350"}vh;
                 padding: 0 calc(50vw - 50vh);
               }
@@ -166,9 +170,13 @@ const ProjectTemplate = ({
             <Wrapper>
               <div
                 css={css`
-                  margin: ${(68 / 568) * 100}vh ${(138 / 568) * 100}vh;
-                  columns: 2;
-                  grid-column-gap: ${(30 / 568) * 100}vh;
+                  margin: ${(68 / 568) * 100}vh ${(68 / 568) * 100}vh;
+
+                  ${breakpoints.mediaQueries.ratio11} {
+                    margin: ${(68 / 568) * 100}vh ${(138 / 568) * 100}vh;
+                    columns: 2;
+                    grid-column-gap: ${(30 / 568) * 100}vh;
+                  }
                 `}
               >
                 <BaseBlockContent blocks={project._rawDescription} />
