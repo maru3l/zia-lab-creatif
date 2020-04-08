@@ -15,6 +15,8 @@ import FooterView from "../views/footer"
 import Hero from "../views/Hero"
 import VectorInverseStar from "../images/VectorInverseStar"
 import { colors } from "../styles/variables"
+import TestHero from "../views/TestHero"
+import TestMemoHero from "../views/TestMemoHero"
 
 const IndexPage = () => (
   <Layout>
@@ -34,7 +36,11 @@ const IndexPage = () => (
       ]}
     />
 
-    <Hero />
+    {/* <Hero /> */}
+
+    {/* <TestHero /> */}
+
+    <TestMemoHero />
 
     <Home />
 
