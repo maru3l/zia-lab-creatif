@@ -1,11 +1,11 @@
 // vendors
-import React, { Component } from "react"
+import React, { PureComponent } from "react"
 
 import Canvas from "../components/Kaleidoscope/Canvas"
 
 import { colors } from "../styles/variables"
 
-class Hero extends Component {
+class Hero extends PureComponent {
   constructor(props) {
     super(props)
 

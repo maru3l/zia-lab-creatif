@@ -1,9 +1,9 @@
 // vendors
-import React, { Component } from "react"
+import React, { Component, PureComponent } from "react"
 
 import PureCanvas from "./PureCanvas"
 
-class Canvas extends Component {
+class Canvas extends PureComponent {
   constructor(props) {
     super(props)
 
