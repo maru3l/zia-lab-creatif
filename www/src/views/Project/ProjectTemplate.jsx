@@ -61,7 +61,9 @@ const ProjectTemplate = ({
   }
 
   const handleWheel = e => {
-    const query = window.matchMedia(breakpoints.mediaQueries.ratio11)
+    const query = window.matchMedia(
+      "(min-aspect-ratio: 1/1) and (min-height: 768px)"
+    )
 
     if (query.matches) {
       sliderRef.current.scrollLeft = e.deltaY + sliderRef.current.scrollLeft

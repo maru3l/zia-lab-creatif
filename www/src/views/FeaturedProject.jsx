@@ -91,7 +91,9 @@ const FeaturedProject = () => {
     } = intersectionRef.current.getBoundingClientRect()
 
     if (top - window.innerHeight < 0 && 0 < bottom + window.innerHeight) {
-      const query = window.matchMedia(breakpoints.mediaQueries.ratio11)
+      const query = window.matchMedia(
+        "(min-aspect-ratio: 1/1) and (min-height: 768px)"
+      )
 
       if (query.matches) {
         const ratio = 1 / 5
