@@ -48,7 +48,9 @@ const Panel = ({
         min-height: calc(100vh - 80px);
         opacity: ${visible ? "1" : "0"};
         transition: opacity 350ms ease-out;
-        z-index: 1;
+        z-index: 2;
+        position: relative;
+        will-change: opacity;
 
         ${breakpoints.mediaQueries.ratio11} {
           padding-left: 0;

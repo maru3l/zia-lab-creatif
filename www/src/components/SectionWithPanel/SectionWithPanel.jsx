@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   max-width: 100vw;
   margin: auto;
   min-height: 100vh;
+  position: relative;
 
   ${breakpoints.mediaQueries.ratio11} {
     display: grid;
@@ -27,6 +28,8 @@ const TitlePanel = styled.div`
   grid-column-start: 1;
   grid-row: 1 / span 6;
   grid-column-end: span 1;
+  z-index: 1;
+  position: relative;
 `
 
 const SectionWithPanel = ({ children, title, ...props }) => {
@@ -55,11 +58,14 @@ const SectionWithPanel = ({ children, title, ...props }) => {
         css`
           min-height: 100vh;
           position: relative;
-          color: ${colorsState.color};
-          background-color: ${colorsState.backgroundColor};
           transition: color 150ms, background-color 150ms;
+          will-change: background-color color;
         `,
       ]}
+      style={{
+        backgroundColor: colorsState.backgroundColor,
+        color: colorsState.color,
+      }}
       {...props}
     >
       <Wrapper>
@@ -79,17 +85,18 @@ const SectionWithPanel = ({ children, title, ...props }) => {
                 display: none;
                 position: absolute;
                 width: ${42 / 36}em;
-                fill: ${colorsState.starColor};
                 top: 50%;
-                opacity: 0;
-                z-index: -1;
                 left: 125%;
+                will-change: fill;
 
                 ${breakpoints.mediaQueries.ratio11} {
                   display: block;
                   opacity: 1;
                 }
               `}
+              style={{
+                fill: colorsState.starColor,
+              }}
             />
             <h2
               css={css`
@@ -108,6 +115,7 @@ const SectionWithPanel = ({ children, title, ...props }) => {
             </h2>
           </div>
         </TitlePanel>
+
         {children.map((child, index) => {
           return React.cloneElement(child, {
             key: index,
