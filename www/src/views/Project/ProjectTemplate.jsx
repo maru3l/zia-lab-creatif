@@ -61,9 +61,11 @@ const ProjectTemplate = ({
   }
 
   const handleWheel = e => {
-    // console.log(sliderRef.current)
-    // console.log(sliderRef.current)
-    // sliderRef.current.scrollLeft = e.deltaY + sliderRef.current.scrollLeft
+    const query = window.matchMedia(breakpoints.mediaQueries.ratio11)
+
+    if (query.matches) {
+      sliderRef.current.scrollLeft = e.deltaY + sliderRef.current.scrollLeft
+    }
   }
 
   return (
@@ -90,7 +92,6 @@ const ProjectTemplate = ({
             letter-spacing: ${59 / 1000}em;
             margin: 0;
             transform: rotate(-90deg);
-            max-width: ${300 / 38}em;
             ${fluidRange(
               {
                 prop: "font-size",
@@ -100,6 +101,10 @@ const ProjectTemplate = ({
               "320px",
               "768px"
             )};
+
+            ${breakpoints.mediaQueries.ratio11} {
+              max-width: ${300 / 38}em;
+            }
 
             ${open &&
               css`
@@ -170,7 +175,7 @@ const ProjectTemplate = ({
             <Wrapper>
               <div
                 css={css`
-                  margin: ${(68 / 568) * 100}vh ${(68 / 568) * 100}vh;
+                  margin: ${(68 / 568) * 100}vh ${(40 / 360) * 100}vw;
 
                   ${breakpoints.mediaQueries.ratio11} {
                     margin: ${(68 / 568) * 100}vh ${(138 / 568) * 100}vh;

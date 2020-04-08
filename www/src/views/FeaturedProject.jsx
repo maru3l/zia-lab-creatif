@@ -91,9 +91,13 @@ const FeaturedProject = () => {
     } = intersectionRef.current.getBoundingClientRect()
 
     if (top - window.innerHeight < 0 && 0 < bottom + window.innerHeight) {
-      const ratio = 1 / 5
+      const query = window.matchMedia(breakpoints.mediaQueries.ratio11)
 
-      setTranslateX(Math.max(Math.min((top * -1) / height, ratio * 5), 0))
+      if (query.matches) {
+        const ratio = 1 / 5
+
+        setTranslateX(Math.max(Math.min((top * -1) / height, ratio * 5), 0))
+      }
     }
   })
 
@@ -102,26 +106,29 @@ const FeaturedProject = () => {
       ref={intersectionRef}
       css={css`
         position: relative;
-        min-height: 500vh;
         background-color: ${colors.black};
         color: ${colors.doublePearlLusta};
+
+        ${breakpoints.mediaQueries.ratio11} {
+          min-height: 500vh;
+        }
       `}
     >
       <div
         css={css`
-          top: 0;
-          height: 100vh;
-          overflow: hidden;
-          position: sticky;
-          width: 100vw;
+          ${breakpoints.mediaQueries.ratio11} {
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: sticky;
+            width: 100vw;
+          }
         `}
       >
         <div
           css={css`
-            display: flex;
-            width: 500vw;
-
             ${breakpoints.mediaQueries.ratio11} {
+              display: flex;
               width: 500vh;
               padding: 0 calc(50vw - 50vh);
             }
