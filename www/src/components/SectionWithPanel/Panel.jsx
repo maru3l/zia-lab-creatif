@@ -1,79 +1,63 @@
 // vendors
-import React, { Component } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { css } from "@emotion/core"
 
 import { breakpoints } from "../../styles/variables"
 
-class Panel extends Component {
-  constructor(props) {
-    super(props)
+const Panel = ({
+  children,
+  onShowInviewport,
+  backgroundColor,
+  color,
+  starColor,
+}) => {
+  const [visible, setVisible] = useState(false)
+  const elementRef = useRef(null)
 
-    this.state = {
-      isVisible: false,
+  useEffect(() => {
+    if (elementRef !== null) {
+      const element = elementRef.current
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              onShowInviewport({ backgroundColor, color, starColor })
+
+              if (!visible) setVisible(true)
+            }
+          })
+        },
+        {
+          threshold: [0.55],
+        }
+      )
+
+      observer.observe(element)
     }
+  }, [backgroundColor, color, elementRef, onShowInviewport, starColor, visible])
 
-    this.myRef = React.createRef()
+  return (
+    <div
+      ref={elementRef}
+      css={css`
+        font-size: 1em;
+        letter-spacing: ${-7 / 1000}em;
+        padding: 40px;
+        grid-column-start: 2;
+        grid-column-end: span 1;
+        min-height: calc(100vh - 80px);
+        opacity: ${visible ? "1" : "0"};
+        transition: opacity 350ms ease-out;
+        z-index: 1;
 
-    this.handleScroll = this.handleScroll.bind(this)
-  }
-
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll)
-  }
-
-  handleScroll() {
-    const { onShowInviewport, backgroundColor, color, starColor } = this.props
-    const { isVisible } = this.state
-
-    const { top, height } = this.myRef.current.getBoundingClientRect()
-
-    const { innerHeight } = window
-
-    if (top - innerHeight / (4 / 3) < 0) {
-      if (!isVisible) this.setState({ isVisible: true })
-
-      onShowInviewport({ backgroundColor, color, starColor })
-    }
-
-    if (
-      top - innerHeight / (4 / 3) < 0 &&
-      top + height - innerHeight / (4 / 3) > 0
-    ) {
-      onShowInviewport({ backgroundColor, color, starColor })
-    }
-  }
-
-  render() {
-    const { children } = this.props
-    const { isVisible } = this.state
-
-    return (
-      <div
-        ref={this.myRef}
-        css={css`
-          font-size: 1em;
-          letter-spacing: ${-7 / 1000}em;
-          padding: 40px;
-          grid-column-start: 2;
-          grid-column-end: span 1;
-          min-height: calc(100vh - 80px);
-          opacity: ${isVisible ? "1" : "0"};
-          transition: opacity 450ms ease-out;
-          z-index: 1;
-
-          ${breakpoints.mediaQueries.ratio11} {
-            padding-left: 0;
-          }
-        `}
-      >
-        {children}
-      </div>
-    )
-  }
+        ${breakpoints.mediaQueries.ratio11} {
+          padding-left: 0;
+        }
+      `}
+    >
+      {children}
+    </div>
+  )
 }
 
 Panel.defaultProps = {

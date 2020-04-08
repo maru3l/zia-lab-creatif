@@ -6,6 +6,7 @@ import styled from "@emotion/styled"
 import { colors, breakpoints } from "../../styles/variables"
 
 import VectorStar from "../../images/VectorStar"
+import { useRef } from "react"
 
 const Wrapper = styled.div`
   width: 100vh;
@@ -29,16 +30,16 @@ const TitlePanel = styled.div`
 `
 
 const SectionWithPanel = ({ children, title, ...props }) => {
-  const [current, setCurrent] = useState()
+  const currentIndex = useRef(null)
   const [colorsState, setColorsState] = useState({
     backgroundColor: colors.doublePearlLusta,
     color: colors.verdunGreen,
     starColor: ``,
   })
   const setColors = (index, { backgroundColor, starColor, color }) => {
-    if (current === index) return
+    if (currentIndex.current === index) return
 
-    setCurrent(index)
+    currentIndex.current = index
 
     setColorsState({
       backgroundColor,
@@ -56,7 +57,7 @@ const SectionWithPanel = ({ children, title, ...props }) => {
           position: relative;
           color: ${colorsState.color};
           background-color: ${colorsState.backgroundColor};
-          transition: color 100ms, background-color 100ms;
+          transition: color 150ms, background-color 150ms;
         `,
       ]}
       {...props}
