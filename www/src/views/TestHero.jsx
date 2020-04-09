@@ -13,7 +13,6 @@ const KaleidoscopePart = ({ imgRef, width }) => {
   const context = useCanvas()
 
   if (context !== null && imgRef !== null) {
-    // console.log(imgRef.current.width)
     context.fillStyle = context.createPattern(imgRef.current, "repeat")
 
     const TWO_PI = Math.PI * 2

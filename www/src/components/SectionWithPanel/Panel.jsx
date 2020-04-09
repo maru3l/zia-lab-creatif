@@ -20,7 +20,7 @@ const Panel = ({
       const observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
               onShowInviewport({ backgroundColor, color, starColor })
 
               if (!visible) setVisible(true)
@@ -28,7 +28,7 @@ const Panel = ({
           })
         },
         {
-          threshold: [0.55],
+          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
         }
       )
 

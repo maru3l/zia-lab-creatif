@@ -50,7 +50,7 @@ const GridPicture = ({ picture, loaded, isLoader, onLoad = () => {} }) => {
         >
           <source
             sizes="(min-aspect-ratio: 1/1) 50vh, 50vw"
-            srcset={picture.srcSetWebp}
+            srcSet={picture.srcSetWebp}
             type="image/webp"
           />
 
@@ -58,7 +58,7 @@ const GridPicture = ({ picture, loaded, isLoader, onLoad = () => {} }) => {
             src={picture.src}
             alt=""
             sizes="(min-aspect-ratio: 1/1) 50vh, 50vw"
-            srcset={picture.srcSet}
+            srcSet={picture.srcSet}
           />
         </picture>
       )}
@@ -85,7 +85,9 @@ const Grid = ({ picture }) => {
       <GridPicture picture={picture} isLoader onLoad={handleLoad} loaded />
 
       {loaded &&
-        [...Array(3)].map(() => <GridPicture picture={picture} loaded />)}
+        [...Array(3)].map((_, index) => (
+          <GridPicture picture={picture} loaded key={index} />
+        ))}
     </div>
   )
 }
@@ -109,7 +111,7 @@ const FullScreen = ({ picture }) => (
     >
       <source
         sizes="(min-aspect-ratio: 1/1) 100vh, 100vw"
-        srcset={picture.srcSetWebp}
+        srcSet={picture.srcSetWebp}
         type="image/webp"
       />
 
@@ -117,7 +119,7 @@ const FullScreen = ({ picture }) => (
         src={picture.src}
         alt=""
         sizes="(min-aspect-ratio: 1/1) 100vh, 100vw"
-        srcset={picture.srcSet}
+        srcSet={picture.srcSet}
       />
     </picture>
   </div>

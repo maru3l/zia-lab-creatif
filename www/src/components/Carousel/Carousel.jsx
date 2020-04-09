@@ -50,13 +50,13 @@ const Slide = ({ picture }) => {
           }
         `}
       >
-        <source sizes={sizes} srcset={picture.srcSetWebp} type="image/webp" />
+        <source sizes={sizes} srcSet={picture.srcSetWebp} type="image/webp" />
 
         <img
           src={picture.src}
           alt={picture.alt}
           sizes={sizes}
-          srcset={picture.srcSet}
+          srcSet={picture.srcSet}
         />
       </picture>
     </div>

@@ -141,7 +141,7 @@ const FooterView = () => {
 
             <ul>
               {boardMembers.map(({ node }) => (
-                <li>
+                <li key={node.name}>
                   {node.name}, {node.role}
                 </li>
               ))}

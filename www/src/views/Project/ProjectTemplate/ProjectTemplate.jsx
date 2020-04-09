@@ -11,6 +11,7 @@ import ProjectModal from "./ProjectModal"
 
 const ProjectTemplate = ({ project, onInViewport, colorSet }) => {
   const intersectionRef = useRef()
+  const isInViewport = useRef(false)
   const [open, setOpen] = useState(false)
 
   const handleClick = () => setOpen(!open)
@@ -20,11 +21,21 @@ const ProjectTemplate = ({ project, onInViewport, colorSet }) => {
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) onInViewport()
+          if (
+            entry.isIntersecting &&
+            entry.intersectionRatio > 0.55 &&
+            !isInViewport.current
+          ) {
+            isInViewport.current = true
+
+            onInViewport()
+          } else {
+            isInViewport.current = false
+          }
         })
       },
       {
-        threshold: [0.55],
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
       }
     )
 
