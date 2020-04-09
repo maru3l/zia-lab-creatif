@@ -33,6 +33,10 @@ const Panel = ({
       )
 
       observer.observe(element)
+
+      return () => {
+        observer.disconnect(element)
+      }
     }
   }, [backgroundColor, color, elementRef, onShowInviewport, starColor, visible])
 

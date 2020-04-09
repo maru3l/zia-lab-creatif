@@ -59,7 +59,7 @@ const SectionWithPanel = ({ children, title, ...props }) => {
           min-height: 100vh;
           position: relative;
           transition: color 150ms, background-color 150ms;
-          will-change: background-color color;
+          will-change: background-color, color;
         `,
       ]}
       style={{
