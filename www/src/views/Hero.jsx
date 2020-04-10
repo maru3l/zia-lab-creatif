@@ -188,7 +188,7 @@ const Hero = () => {
         canvasRef.current.offsetwidth
       )
 
-      // kaleidoscopeRef.current.setWidth(width)
+      kaleidoscopeRef.current.setWidth(width)
 
       requestTick()
     }
@@ -293,8 +293,6 @@ const Hero = () => {
       >
         <canvas
           ref={canvasRef}
-          height="800"
-          width="800"
           css={css`
             display: block;
             width: 100%;
