@@ -201,7 +201,7 @@ const Hero = () => {
 
     return () =>
       window.removeEventListener("mousemove", getMouseCoordonates, false)
-  }, [getMouseCoordonates, requestTick])
+  }, [getMouseCoordonates])
 
   useEffect(() => {
     if (canvasRef !== null && imgRef !== null && imgLoaded) {
