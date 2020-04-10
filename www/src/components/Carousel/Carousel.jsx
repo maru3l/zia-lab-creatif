@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react"
 import { css } from "@emotion/core"
 
 const Slide = ({ picture }) => {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(true)
 
   const sizes = `${(238 / 562) * 100 * picture.aspectRatio}vh`
 

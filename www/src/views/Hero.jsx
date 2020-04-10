@@ -11,6 +11,8 @@ class Kaleidoscope {
     this.context = domElement.getContext("2d")
     this.img = img
 
+    console.log("construct")
+
     const width = Math.min(
       this.domElement.offsetWidth,
       this.domElement.offsetHeight
@@ -93,7 +95,7 @@ const Hero = () => {
   const canvasRef = useRef(null)
   const imgRef = useRef(null)
   const kaleidoscopeRef = useRef(null)
-  const [imgLoaded, isImgLoaded] = useState(false)
+  const [imgLoaded, setImgLoaded] = useState(false)
   const tickingRef = useRef(false)
   const frameRef = useRef(0)
   const mouseCoordonatesRef = useRef(null)
@@ -186,7 +188,7 @@ const Hero = () => {
         canvasRef.current.offsetwidth
       )
 
-      kaleidoscopeRef.current.setWidth(width)
+      // kaleidoscopeRef.current.setWidth(width)
 
       requestTick()
     }
@@ -247,8 +249,24 @@ const Hero = () => {
   }, [handleResize])
 
   const handleLoaded = e => {
-    isImgLoaded(true)
+    setImgLoaded(true)
   }
+
+  useEffect(() => {
+    if (imgRef !== null) {
+      if (imgRef.current.complete) {
+        setImgLoaded(true)
+
+        return
+      }
+
+      imgRef.current.addEventListener("load", handleLoaded)
+
+      return () => {
+        imgRef.current.removeEventListener("load", handleLoaded)
+      }
+    }
+  }, [imgRef])
 
   return (
     <section
@@ -275,6 +293,8 @@ const Hero = () => {
       >
         <canvas
           ref={canvasRef}
+          height="800"
+          width="800"
           css={css`
             display: block;
             width: 100%;
@@ -295,4 +315,4 @@ const Hero = () => {
   )
 }
 
-export default React.memo(Hero)
+export default Hero
