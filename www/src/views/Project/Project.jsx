@@ -1,13 +1,16 @@
 // vendor
-import React, { useLayoutEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 import VisuallyHidden from "@reach/visually-hidden"
 
-import { colors, breakpoints } from "../../styles/variables"
-import VectorStar from "../../images/VectorStar"
-import ProjectTemplate from "./ProjectTemplate"
+import { colors } from "../../styles/variables"
+import ProjectTemplate from "./ProjectTemplate/ProjectTemplate"
+
+const projectTitleCss = css`
+  will-change: fill;
+`
 
 const Wrapper = styled.div`
   width: 100vh;
@@ -16,21 +19,33 @@ const Wrapper = styled.div`
   min-height: 100vh;
 `
 
-const colorOrder = [
+const colorSets = [
+  {
+    background: colors.prussianBlue,
+    color: colors.doublePearlLusta,
+    star: colors.scarlet,
+    button: {
+      color: colors.doublePearlLusta,
+      underline: colors.scarlet,
+    },
+  },
   {
     background: colors.scarlet,
     color: colors.doublePearlLusta,
     star: colors.prussianBlue,
+    button: {
+      color: colors.doublePearlLusta,
+      underline: colors.prussianBlue,
+    },
   },
   {
     background: colors.doublePearlLusta,
     color: colors.scarlet,
     star: colors.verdunGreen,
-  },
-  {
-    background: colors.prussianBlue,
-    color: colors.doublePearlLusta,
-    star: colors.scarlet,
+    button: {
+      color: colors.scarlet,
+      underline: colors.prussianBlue,
+    },
   },
 ]
 
@@ -49,6 +64,8 @@ const GET_PROJECTS = graphql`
                 src
                 srcSet
                 srcSetWebp
+                aspectRatio
+                base64
               }
             }
             hotspot {
@@ -77,6 +94,8 @@ const GET_PROJECTS = graphql`
                   src
                   srcSet
                   srcSetWebp
+                  aspectRatio
+                  base64
                 }
               }
             }
@@ -88,40 +107,40 @@ const GET_PROJECTS = graphql`
 `
 
 const ProjectView = () => {
-  const intersectionRef = React.useRef()
-  const [colorState, setColorState] = useState({
-    background: colors.prussianBlue,
-    color: colors.doublePearlLusta,
-    star: colors.scarlet,
-  })
+  const intersectionRef = React.useRef(null)
+  const currentIndex = React.useRef(0)
+  const [colorState, setColorState] = useState(colorSets[0])
+
   const {
     projects: { edges: projects = [] },
   } = useStaticQuery(GET_PROJECTS)
 
-  const handleInViewport = id => {
-    if (id > -1) {
-      setColorState(colorOrder[id])
-    } else {
-      setColorState({
-        background: colors.prussianBlue,
-        color: colors.doublePearlLusta,
-        star: colors.scarlet,
-      })
-    }
+  const handleInViewport = index => {
+    if (currentIndex.current === index) return
+
+    const colorSet = colorSets[(index + colorSets.length) % colorSets.length]
+
+    setColorState(colorSet)
+
+    currentIndex.current = index
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const intersectionElement = intersectionRef.current
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
-            handleInViewport(-1)
+          if (
+            entry.isIntersecting &&
+            entry.intersectionRatio > 0.55 &&
+            currentIndex.current !== 0
+          ) {
+            handleInViewport(0)
           }
         })
       },
       {
-        threshold: [0, 0.5, 0.55, 1],
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
       }
     )
 
@@ -136,11 +155,14 @@ const ProjectView = () => {
     <section
       id="projets"
       css={css`
-        background-color: ${colorState.background};
-        color: ${colorState.color};
         font-size: 1em;
-        transition: color 100ms, background-color 100ms;
+        transition: color 150ms, background-color 150ms;
+        will-change: background-color, color;
       `}
+      style={{
+        backgroundColor: colorState.background,
+        color: colorState.color,
+      }}
     >
       <VisuallyHidden>
         <h2>Projets</h2>
@@ -154,14 +176,22 @@ const ProjectView = () => {
           justify-content: space-between;
         `}
       >
-        <svg viewBox="0 0 55 22">
-          <text x="0" y="15" fill={colorState.color}>
+        <svg
+          viewBox="0 0 55 22"
+          css={projectTitleCss}
+          style={{ fill: colorState.color }}
+        >
+          <text x="0" y="15">
             Projets
           </text>
         </svg>
 
-        <svg viewBox="0 0 55 22">
-          <text x="0" y="15" fill={colorState.color}>
+        <svg
+          viewBox="0 0 55 22"
+          css={projectTitleCss}
+          style={{ fill: colorState.color }}
+        >
+          <text x="0" y="15">
             Projets
           </text>
         </svg>
@@ -169,11 +199,10 @@ const ProjectView = () => {
 
       {projects.map(({ node }, index) => (
         <ProjectTemplate
-          backgroundColor={colorState.background}
-          textColor={colorState.color}
           key={node.id}
-          onInViewport={() => handleInViewport(index)}
+          onInViewport={() => handleInViewport(index + 1)}
           project={node}
+          colorSet={colorState}
         />
       ))}
     </section>

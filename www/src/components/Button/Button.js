@@ -73,10 +73,14 @@ const getAncesterCssValue = (element, params = []) => {
   return results
 }
 
-const Button = ({ children, tag, to, fitWithBgColor, ...rest }) => {
-  const buttonRef = React.createRef()
-  const [color, setColor] = useState(colors.doublePearlLusta)
-  const [underlineColor, setUnderlineColor] = useState(colors.scarlet)
+const Button = ({
+  children,
+  tag,
+  to,
+  color = colors.doublePearlLusta,
+  underlineColor = colors.scarlet,
+  ...rest
+}) => {
   const Tag = components[tag || "button"]
 
   const props = {
@@ -84,50 +88,6 @@ const Button = ({ children, tag, to, fitWithBgColor, ...rest }) => {
     href: tag === `href` || tag === `a` ? to : undefined,
     ...rest,
   }
-
-  useLayoutEffect(() => {
-    if (fitWithBgColor) {
-      const response = getAncesterCssValue(buttonRef.current.parentNode, [
-        "background-color",
-        "color",
-      ])
-
-      const [bgColor, fontColor] = response
-
-      const fontColorRGB = getRGB(fontColor)
-      const fontColorHex = rgbToHex(
-        fontColorRGB[0],
-        fontColorRGB[1],
-        fontColorRGB[2]
-      )
-
-      const bgColorRGB = getRGB(bgColor)
-      const bgColorHex = rgbToHex(bgColorRGB[0], bgColorRGB[1], bgColorRGB[2])
-
-      setColor(fontColorHex)
-
-      if (
-        fontColorHex === colors.scarlet &&
-        bgColorHex === colors.doublePearlLusta
-      ) {
-        setUnderlineColor(colors.prussianBlue)
-      }
-
-      if (
-        bgColorHex === colors.scarlet &&
-        fontColorHex === colors.doublePearlLusta
-      ) {
-        setUnderlineColor(colors.prussianBlue)
-      }
-
-      if (
-        bgColorHex === colors.prussianBlue &&
-        fontColorHex === colors.doublePearlLusta
-      ) {
-        setUnderlineColor(colors.scarlet)
-      }
-    }
-  }, [buttonRef, fitWithBgColor])
 
   const buttonStyles = css`
     font-family: inherit;
@@ -144,6 +104,7 @@ const Button = ({ children, tag, to, fitWithBgColor, ...rest }) => {
     z-index: 1;
     padding: 0 0.02em;
     margin: ${6.715 / 41}em 0;
+    will-change: color;
 
     ${fluidRange(
       {
@@ -157,6 +118,7 @@ const Button = ({ children, tag, to, fitWithBgColor, ...rest }) => {
 
     &:before {
       background-color: ${underlineColor};
+      will-change: background-color;
       /* height: calc(${6.715 / 41}em + 100%); */
       height: 100%;
       width: 100%;
@@ -174,6 +136,7 @@ const Button = ({ children, tag, to, fitWithBgColor, ...rest }) => {
 
     &:after {
       background-color: ${underlineColor};
+      will-change: background-color;
       /* height: ${6.715 / 41}em; */
       height: 9px;
       width: 100%;
@@ -188,19 +151,14 @@ const Button = ({ children, tag, to, fitWithBgColor, ...rest }) => {
     :focus {
       &:before {
         transform: scaleY(1);
+        will-change: transform;
         outline: 0;
       }
     }
   `
 
-  const style = {
-    "&&": {
-      ...buttonStyles,
-    },
-  }
-
   return (
-    <Tag css={style} {...props} ref={buttonRef}>
+    <Tag css={buttonStyles} {...props}>
       {children}
     </Tag>
   )

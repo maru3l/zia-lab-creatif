@@ -1,11 +1,10 @@
 // vendors
-import React from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 import { colors, breakpoints } from "../styles/variables"
 import { useStaticQuery, graphql } from "gatsby"
 import { fluidRange } from "polished"
-import { useState, useCallback } from "react"
 import BaseBlockContent from "@sanity/block-content-to-react"
 
 import PictureMontage from "../components/PictureMontage/PictureMontage"
@@ -31,6 +30,8 @@ const GET_PROJECT = graphql`
               src
               srcSet
               srcSetWebp
+              aspectRatio
+              base64
             }
           }
           alt
@@ -47,6 +48,8 @@ const GET_PROJECT = graphql`
             src
             srcSet
             srcSetWebp
+            aspectRatio
+            base64
           }
         }
       }
@@ -56,50 +59,89 @@ const GET_PROJECT = graphql`
   }
 `
 
-const useAnimationFrame = callback => {
-  const requestRef = React.useRef()
-  const previousTimeRef = React.useRef()
-
-  const animate = useCallback(
-    time => {
-      if (previousTimeRef.current !== undefined) {
-        const deltaTime = time - previousTimeRef.current
-        callback(deltaTime)
-      }
-      previousTimeRef.current = time
-      requestRef.current = requestAnimationFrame(animate)
-    },
-    [callback]
-  )
-
-  React.useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(requestRef.current)
-  }, [animate]) // Make sure the effect runs only once
-}
-
 const FeaturedProject = () => {
-  const intersectionRef = React.useRef()
-  const [translateX, setTranslateX] = useState(0)
   const { project } = useStaticQuery(GET_PROJECT)
+  const [translateX, setTranslateX] = useState(0)
+  const intersectionRef = React.useRef(null)
+  const tickingRef = React.useRef(false)
+  const canScrollHandleRef = React.useRef(true)
+  const isIntersectingRef = React.useRef(false)
 
-  useAnimationFrame(() => {
-    const {
-      top,
-      bottom,
-      height,
-    } = intersectionRef.current.getBoundingClientRect()
+  const animate = useCallback(() => {
+    if (intersectionRef !== null) {
+      const ratio = 1 / 5
+      const {
+        top,
+        bottom,
+        height,
+      } = intersectionRef.current.getBoundingClientRect()
 
-    if (top - window.innerHeight < 0 && 0 < bottom + window.innerHeight) {
-      const query = window.matchMedia(breakpoints.mediaQueries.ratio11)
-
-      if (query.matches) {
-        const ratio = 1 / 5
-
+      if (
+        top - window.innerHeight < 0 &&
+        0 < bottom + window.innerHeight &&
+        canScrollHandleRef.current
+      ) {
         setTranslateX(Math.max(Math.min((top * -1) / height, ratio * 5), 0))
       }
+
+      if (!canScrollHandleRef.current && translateX !== 0) {
+        setTranslateX(0)
+      }
     }
-  })
+
+    tickingRef.current = false
+  }, [translateX])
+
+  const requestTick = useCallback(() => {
+    if (!tickingRef.current && isIntersectingRef.current) {
+      requestAnimationFrame(animate)
+
+      tickingRef.current = true
+    }
+  }, [animate])
+
+  const handleResize = useCallback(() => {
+    const query = window.matchMedia(
+      "(min-aspect-ratio: 1/1) and (min-height: 768px)"
+    )
+
+    canScrollHandleRef.current = query.matches
+
+    requestTick()
+  }, [requestTick])
+
+  useEffect(() => {
+    window.addEventListener("scroll", requestTick, false)
+
+    return () => {
+      window.removeEventListener("scroll", requestTick, false)
+    }
+  }, [requestTick])
+
+  useEffect(() => {
+    const element = intersectionRef.current
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        isIntersectingRef.current = entry.isIntersecting
+      })
+    })
+
+    observer.observe(element)
+
+    return () => {
+      observer.disconnect(element)
+    }
+  }, [intersectionRef])
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+
+    handleResize()
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [handleResize])
 
   return (
     <section
@@ -131,6 +173,7 @@ const FeaturedProject = () => {
               display: flex;
               width: 500vh;
               padding: 0 calc(50vw - 50vh);
+              will-change: transform;
             }
           `}
           style={{ transform: `translateX(${translateX * -100}%)` }}
@@ -142,10 +185,14 @@ const FeaturedProject = () => {
             `}
           >
             <PictureMontage
-              picture={{ ...project.featureImage.image.asset.fluid }}
+              picture={{
+                ...project.featureImage.image.asset.fluid,
+                hotspot: project.featureImage.image.hotspot || null,
+              }}
               disposition={project.featureImage.disposition}
               css={css`
                 height: 100vh;
+                width: 100%;
               `}
             />
           </Wrapper>
@@ -214,6 +261,8 @@ const FeaturedProject = () => {
                 srcSet: picture.asset.fluid.srcSet,
                 srcSetWebp: picture.asset.fluid.srcSetWebp,
                 alt: picture.alt,
+                aspectRatio: picture.asset.fluid.aspectRatio,
+                base64: picture.asset.fluid.base64,
               }))}
             />
           </Wrapper>

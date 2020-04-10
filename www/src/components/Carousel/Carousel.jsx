@@ -1,58 +1,129 @@
 // vendors
-import React from "react"
+import React, { useState, useCallback, useEffect, useRef } from "react"
 import { css } from "@emotion/core"
-import { useState, useCallback } from "react"
 
-const useAnimationFrame = callback => {
-  const requestRef = React.useRef()
-  const previousTimeRef = React.useRef()
+const Slide = ({ picture }) => {
+  const [loaded, setLoaded] = useState(false)
 
-  const animate = useCallback(
-    time => {
-      if (previousTimeRef.current !== undefined) {
-        const deltaTime = time - previousTimeRef.current
-        callback(deltaTime)
-      }
-      previousTimeRef.current = time
-      requestRef.current = requestAnimationFrame(animate)
-    },
-    [callback]
+  const sizes = `${(238 / 562) * 100 * picture.aspectRatio}vh`
+
+  const handleLoad = e => {
+    setLoaded(true)
+  }
+
+  return (
+    <div
+      css={css`
+        position: relative;
+        margin-right: 75px;
+        height: ${(238 / 562) * 100}vh;
+        width: ${sizes};
+      `}
+    >
+      <img
+        src={picture.base64}
+        css={css`
+          position: absolute;
+          height: ${(238 / 562) * 100}vh;
+          width: ${sizes};
+          top: 0;
+          left: 0;
+          z-index: 2;
+          will-change: opacity;
+          transition: opacity 150ms;
+        `}
+        role="presentation"
+        alt=""
+        style={{ opacity: loaded ? 0 : 1 }}
+      />
+
+      <picture
+        onLoad={handleLoad}
+        css={css`
+          position: relative;
+          z-index: 1;
+
+          * {
+            object-fit: contain;
+            height: ${(238 / 562) * 100}vh;
+            width: ${sizes};
+          }
+        `}
+      >
+        <source sizes={sizes} srcSet={picture.srcSetWebp} type="image/webp" />
+
+        <img
+          src={picture.src}
+          alt={picture.alt}
+          sizes={sizes}
+          srcSet={picture.srcSet}
+        />
+      </picture>
+    </div>
   )
-
-  React.useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(requestRef.current)
-  }, [animate]) // Make sure the effect runs only once
 }
 
 const Carousel = ({ pictures, ...rest }) => {
   const pictureList = [...pictures, ...pictures]
   const [translateX, setTranslateX] = useState(0)
-  const [playing, setPlaying] = useState(true)
-  const sliderRef = React.useRef()
-  const containerRef = React.useRef()
+  const playing = useRef(true)
+  const containerRef = useRef(null)
+  const sliderRef = useRef(null)
+  const frameRef = useRef(0)
+  const RAFRef = useRef(null)
 
-  useAnimationFrame(deltaTime => {
-    const containerRect = containerRef.current.getBoundingClientRect()
-    const sliderRect = sliderRef.current.getBoundingClientRect()
+  const animate = useCallback(() => {
+    const frame = frameRef.current
+    const ease = 0.001
 
-    if (playing) {
+    if (RAFRef !== null && containerRef !== null && sliderRef !== null) {
+      RAFRef.current = requestAnimationFrame(animate)
+      frameRef.current = frame + 1
+
+      if (!playing.current) return
+
+      const containerRect = containerRef.current.getBoundingClientRect()
+      const sliderRect = sliderRef.current.getBoundingClientRect()
+
       if (
         containerRect.left - sliderRect.left >
-        sliderRef.current.scrollWidth / 2 - 0.00005
+        sliderRef.current.scrollWidth / 2 - ease * 1
       ) {
         setTranslateX(0)
-      } else {
-        setTranslateX(prevCount => (prevCount + deltaTime * 0.00005) % 100)
+
+        return
       }
+
+      setTranslateX(prevCount => (prevCount + 1 * ease) % 100)
     }
-  })
+  }, [])
+
+  useEffect(() => {
+    RAFRef.current = requestAnimationFrame(animate)
+
+    return () => cancelAnimationFrame(RAFRef.current)
+  }, [animate])
+
+  useEffect(() => {
+    const element = containerRef.current
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        playing.current = entry.isIntersecting
+      })
+    })
+
+    observer.observe(element)
+
+    return () => {
+      observer.disconnect(element)
+    }
+  }, [containerRef])
 
   const handleMouseEnter = () => {
-    setPlaying(false)
+    playing.current = false
   }
   const handleMouseLeave = () => {
-    setPlaying(true)
+    playing.current = true
   }
 
   return (
@@ -71,28 +142,12 @@ const Carousel = ({ pictures, ...rest }) => {
         css={css`
           display: flex;
           height: ${(238 / 562) * 100}vh;
+          will-change: transform;
         `}
         style={{ transform: `translateX(${translateX * -100}%)` }}
       >
         {pictureList.map(picture => (
-          <picture
-            css={css`
-              * {
-                object-fit: contain;
-                height: ${(238 / 562) * 100}vh;
-                margin-right: 75px;
-              }
-            `}
-          >
-            <source sizes="" srcset={picture.srcSetWebp} type="image/webp" />
-
-            <img
-              src={picture.src}
-              alt={picture.alt}
-              sizes=""
-              srcset={picture.srcSet}
-            />
-          </picture>
+          <Slide picture={picture} />
         ))}
       </div>
     </div>
