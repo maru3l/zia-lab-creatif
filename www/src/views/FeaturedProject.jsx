@@ -67,38 +67,6 @@ const FeaturedProject = () => {
   const canScrollHandleRef = React.useRef(true)
   const isIntersectingRef = React.useRef(false)
 
-  const handleResize = useCallback(() => {
-    const query = window.matchMedia(
-      "(min-aspect-ratio: 1/1) and (min-height: 768px)"
-    )
-
-    canScrollHandleRef.current = query.matches
-
-    requestTick()
-  }, [requestTick])
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize)
-
-    handleResize()
-
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [handleResize])
-
-  const requestTick = useCallback(() => {
-    if (!tickingRef.current && isIntersectingRef.current) {
-      requestAnimationFrame(animate)
-
-      tickingRef.current = true
-    }
-  }, [animate])
-
-  const onScroll = useCallback(() => {
-    requestTick()
-  }, [requestTick])
-
   const animate = useCallback(() => {
     if (intersectionRef !== null) {
       const ratio = 1 / 5
@@ -124,13 +92,31 @@ const FeaturedProject = () => {
     tickingRef.current = false
   }, [translateX])
 
+  const requestTick = useCallback(() => {
+    if (!tickingRef.current && isIntersectingRef.current) {
+      requestAnimationFrame(animate)
+
+      tickingRef.current = true
+    }
+  }, [animate])
+
+  const handleResize = useCallback(() => {
+    const query = window.matchMedia(
+      "(min-aspect-ratio: 1/1) and (min-height: 768px)"
+    )
+
+    canScrollHandleRef.current = query.matches
+
+    requestTick()
+  }, [requestTick])
+
   useEffect(() => {
-    window.addEventListener("scroll", onScroll, false)
+    window.addEventListener("scroll", requestTick, false)
 
     return () => {
-      window.removeEventListener("scroll", onScroll, false)
+      window.removeEventListener("scroll", requestTick, false)
     }
-  }, [onScroll])
+  }, [requestTick])
 
   useEffect(() => {
     const element = intersectionRef.current
@@ -146,6 +132,16 @@ const FeaturedProject = () => {
       observer.disconnect(element)
     }
   }, [intersectionRef])
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+
+    handleResize()
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [handleResize])
 
   return (
     <section
