@@ -136,20 +136,7 @@ const Hero = () => {
     }
 
     tickingRef.current = false
-
-    if (mouseCoordonatesRef.current === null) {
-      requestAnimationFrame(requestTick)
-    }
-  }, [requestTick])
-
-  const getMouseCoordonates = useCallback(
-    e => {
-      mouseCoordonatesRef.current = { x: e.pageX, y: e.pageY }
-
-      requestTick()
-    },
-    [requestTick]
-  )
+  }, [])
 
   const getCoordonates = useCallback(() => {
     if (mouseCoordonatesRef.current !== null) {
@@ -177,7 +164,20 @@ const Hero = () => {
       frameRef.current += 1 / 2
       tickingRef.current = true
     }
+
+    if (mouseCoordonatesRef.current === null) {
+      requestAnimationFrame(requestTick)
+    }
   }, [animate, getCoordonates])
+
+  const getMouseCoordonates = useCallback(
+    e => {
+      mouseCoordonatesRef.current = { x: e.pageX, y: e.pageY }
+
+      requestTick()
+    },
+    [requestTick]
+  )
 
   const handleResize = useCallback(() => {
     if (canvasRef !== null && kaleidoscopeRef !== null) {
