@@ -127,6 +127,8 @@ const ProjectModal = ({ project, onClose, colorSet }) => {
               `}
             >
               <BaseBlockContent blocks={project._rawDescription} />
+              <BaseBlockContent blocks={project._rawCredit} />
+              <BaseBlockContent blocks={project._rawInfo} />
             </div>
           </Wrapper>
 

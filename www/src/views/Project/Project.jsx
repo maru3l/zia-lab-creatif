@@ -73,7 +73,9 @@ const GET_PROJECTS = graphql`
               y
             }
           }
+          _rawCredit
           _rawDescription
+          _rawInfo
           _id
           _key
           highlighted
