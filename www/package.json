@@ -5,32 +5,33 @@
   "version": "0.1.0",
   "author": "Marc-Antoine Ruel <hello@marcantoineruel.com>",
   "dependencies": {
-    "@emotion/core": "^10.0.27",
+    "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
-    "@reach/visually-hidden": "^0.7.3",
+    "@reach/visually-hidden": "^0.10.0",
     "@sanity/block-content-to-react": "^2.0.7",
-    "babel-plugin-styled-components": "^1.10.6",
+    "babel-plugin-styled-components": "^1.10.7",
     "dotenv": "^8.2.0",
-    "gatsby": "^2.19.1",
-    "gatsby-cli": "^2.8.27",
-    "gatsby-image": "^2.2.39",
-    "gatsby-plugin-emotion": "^4.1.21",
-    "gatsby-plugin-google-analytics": "^2.1.33",
-    "gatsby-plugin-react-helmet": "^3.1.21",
-    "gatsby-plugin-sharp": "^2.4.0",
-    "gatsby-plugin-sitemap": "^2.2.26",
-    "gatsby-plugin-subfont": "^1.1.20",
-    "gatsby-source-filesystem": "^2.1.46",
-    "gatsby-source-sanity": "^5.0.5",
-    "gatsby-transformer-sharp": "^2.3.13",
-    "gatsby-transformer-yaml": "^2.2.23",
+    "gatsby": "^2.20.14",
+    "gatsby-cli": "^2.11.5",
+    "gatsby-image": "^2.3.2",
+    "gatsby-plugin-emotion": "^4.2.1",
+    "gatsby-plugin-google-analytics": "^2.2.2",
+    "gatsby-plugin-react-helmet": "^3.2.1",
+    "gatsby-plugin-sharp": "^2.5.4",
+    "gatsby-plugin-sitemap": "^2.3.1",
+    "gatsby-plugin-subfont": "^2.1.1",
+    "gatsby-source-filesystem": "^2.2.2",
+    "gatsby-source-sanity": "^5.0.6",
+    "gatsby-transformer-sharp": "^2.4.4",
+    "gatsby-transformer-yaml": "^2.3.1",
     "normalize.css": "^8.0.1",
-    "polished": "^3.4.2",
+    "polished": "^3.5.1",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-focus-lock": "^2.2.1",
     "react-helmet": "^5.2.1",
-    "typescript": "^3.7.5"
+    "react-remove-scroll": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -63,11 +64,11 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "husky": "^4.0.10",
+    "husky": "^4.2.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-emotion": "^10.0.27",
-    "lint-staged": "^10.0.1",
+    "lint-staged": "^10.0.3",
     "pa11y-ci": "^2.3.0",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0",
@@ -77,7 +78,8 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-order": "^4.0.0",
     "stylelint-prettier": "^1.1.2",
-    "stylelint-processor-styled-components": "^1.9.0"
+    "stylelint-processor-styled-components": "^1.9.0",
+    "typescript": "^3.7.5"
   },
   "keywords": [
     "gatsby"
@@ -92,7 +94,7 @@
     "format:style": "stylelint './src/**/*.{css,scss}' --fix",
     "lint": "npm run lint:code && npm run lint:style",
     "lint:code": "eslint --ignore-path .gitignore --ignore-path .prettierignore --ext .js,.jsx .",
-    "lint:style": "stylelint './src/**/*.{js,jsx}'",
+    "lint:style": "stylelint './src/**/*.{js,jsx,.css,.scss}'",
     "serve": "gatsby serve",
     "start": "npm run develop",
     "storybook": "start-storybook -s ./static -p 6006",
@@ -106,12 +108,10 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "npm run format:code",
-      "git add"
+      "npm run format:code"
     ],
     "*.{css,scss}": [
-      "npm run format:style",
-      "git add"
+      "npm run format:style"
     ]
   },
   "jest": {

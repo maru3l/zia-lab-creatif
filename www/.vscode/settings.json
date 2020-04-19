@@ -8,9 +8,10 @@
   "[javascriptreact]": {
     "editor.formatOnSave": false
   },
-  // Enable ESLint (with Prettier plugin) to format code on save
-  "eslint.autoFixOnSave": true,
   // "prettier.eslintIntegration": false,
   // "prettier.stylelintIntegration": false,
   "prettier.disableLanguages": ["javascript", "javascriptreact"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

@@ -6,12 +6,14 @@ import styled from "@emotion/styled"
 import { colors, breakpoints } from "../../styles/variables"
 
 import VectorStar from "../../images/VectorStar"
+import { useRef } from "react"
 
 const Wrapper = styled.div`
   width: 100vh;
   max-width: 100vw;
   margin: auto;
   min-height: 100vh;
+  position: relative;
 
   ${breakpoints.mediaQueries.ratio11} {
     display: grid;
@@ -26,19 +28,21 @@ const TitlePanel = styled.div`
   grid-column-start: 1;
   grid-row: 1 / span 6;
   grid-column-end: span 1;
+  z-index: 1;
+  position: relative;
 `
 
 const SectionWithPanel = ({ children, title, ...props }) => {
-  const [current, setCurrent] = useState()
+  const currentIndex = useRef(null)
   const [colorsState, setColorsState] = useState({
     backgroundColor: colors.doublePearlLusta,
     color: colors.verdunGreen,
     starColor: ``,
   })
   const setColors = (index, { backgroundColor, starColor, color }) => {
-    if (current === index) return
+    if (currentIndex.current === index) return
 
-    setCurrent(index)
+    currentIndex.current = index
 
     setColorsState({
       backgroundColor,
@@ -54,11 +58,14 @@ const SectionWithPanel = ({ children, title, ...props }) => {
         css`
           min-height: 100vh;
           position: relative;
-          color: ${colorsState.color};
-          background-color: ${colorsState.backgroundColor};
-          transition: color 100ms, background-color 100ms;
+          transition: color 150ms, background-color 150ms;
+          will-change: background-color, color;
         `,
       ]}
+      style={{
+        backgroundColor: colorsState.backgroundColor,
+        color: colorsState.color,
+      }}
       {...props}
     >
       <Wrapper>
@@ -75,18 +82,21 @@ const SectionWithPanel = ({ children, title, ...props }) => {
           >
             <VectorStar
               css={css`
+                display: none;
                 position: absolute;
                 width: ${42 / 36}em;
-                fill: ${colorsState.starColor};
                 top: 50%;
                 left: 125%;
-                opacity: 0;
-                z-index: -1;
+                will-change: fill;
 
                 ${breakpoints.mediaQueries.ratio11} {
+                  display: block;
                   opacity: 1;
                 }
               `}
+              style={{
+                fill: colorsState.starColor,
+              }}
             />
             <h2
               css={css`
@@ -96,7 +106,8 @@ const SectionWithPanel = ({ children, title, ...props }) => {
                 margin: 0;
 
                 ${breakpoints.mediaQueries.ratio11} {
-                  writing-mode: sideways-lr;
+                  writing-mode: vertical-lr;
+                  transform: rotate(180deg);
                 }
               `}
             >
@@ -104,6 +115,7 @@ const SectionWithPanel = ({ children, title, ...props }) => {
             </h2>
           </div>
         </TitlePanel>
+
         {children.map((child, index) => {
           return React.cloneElement(child, {
             key: index,

@@ -32,6 +32,7 @@ const FooterView = () => {
       id="collaborer"
       css={css`
         background-color: ${colors.prussianBlue};
+        color: ${colors.doublePearlLusta};
       `}
     >
       <div
@@ -140,7 +141,7 @@ const FooterView = () => {
 
             <ul>
               {boardMembers.map(({ node }) => (
-                <li>
+                <li key={node.name}>
                   {node.name}, {node.role}
                 </li>
               ))}

@@ -1,5 +1,7 @@
 // vendors
 import React from "react"
+import { graphql } from "gatsby"
+import Image from "gatsby-image"
 import { css } from "@emotion/core"
 
 // components
@@ -13,10 +15,12 @@ import Mandats from "../views/Mandats"
 import Team from "../views/Team"
 import FooterView from "../views/footer"
 import Hero from "../views/Hero"
+import Project from "../views/Project"
+import FeaturedProject from "../views/FeaturedProject"
 import VectorInverseStar from "../images/VectorInverseStar"
 import { colors } from "../styles/variables"
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <Layout>
     <SEO
       keywords={[
@@ -40,6 +44,8 @@ const IndexPage = () => (
 
     <Mission />
 
+    <FeaturedProject />
+
     <picture
       css={css`
         line-height: 0;
@@ -54,7 +60,7 @@ const IndexPage = () => (
     >
       <source
         sizes="100vw"
-        srcset="
+        srcSet="
           /images/bg-mandats_qo3wfk_c_scale,w_320.webp 320w,
           /images/bg-mandats_qo3wfk_c_scale,w_1661.webp 1661w,
           /images/bg-mandats_qo3wfk_c_scale,w_2170.webp 2170w,
@@ -77,7 +83,7 @@ const IndexPage = () => (
 
       <img
         sizes="100vw"
-        srcset="
+        srcSet="
         /images/bg-mandats_qvp8kl_c_scale,w_320.jpg 320w,
         /images/bg-mandats_qvp8kl_c_scale,w_1128.jpg 1128w,
         /images/bg-mandats_qvp8kl_c_scale,w_1467.jpg 1467w,
@@ -103,6 +109,12 @@ const IndexPage = () => (
     </picture>
 
     <Mandats />
+
+    <Image
+      fluid={{ ...data.bgProjects.childImageSharp.fluid, sizes: "100vw" }}
+    />
+
+    <Project />
 
     <div
       css={css`
@@ -136,7 +148,7 @@ const IndexPage = () => (
       >
         <source
           sizes="100vw"
-          srcset="
+          srcSet="
         /images/bg-organisation,w_256.webp 256w,
         /images/bg-organisation,w_640.webp 640w,
         /images/bg-organisation,w_844.webp 844w,
@@ -155,7 +167,7 @@ const IndexPage = () => (
           alt=""
           role="presentation"
           sizes="100vw"
-          srcset="
+          srcSet="
         /images/bg-organisation,w_256.jpg 256w,
         /images/bg-organisation,w_640.jpg 640w,
         /images/bg-organisation,w_844.jpg 844w,
@@ -177,3 +189,15 @@ const IndexPage = () => (
 )
 
 export default IndexPage
+
+export const query = graphql`
+  query IndexPage {
+    bgProjects: file(name: { eq: "bg-projects" }) {
+      childImageSharp {
+        fluid(maxWidth: 2560) {
+          ...GatsbyImageSharpFluid_withWebp_noBase64
+        }
+      }
+    }
+  }
+`
